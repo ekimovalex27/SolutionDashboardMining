@@ -9,8 +9,6 @@ Monitors farms availability.
 Dashboard Mining works with the site https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)
 
 Dashboard Mining tested for miner 'Claymore-eth-v 10.0'
-- Added work in background
-- Fixed bugs
 
 Farms control
 Flexible setting of farms control conditions
