@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace DashboardMining
@@ -30,7 +20,26 @@ namespace DashboardMining
     {
       this.InitializeComponent();
       this.Suspending += OnSuspending;
+
+      //AEV
+      this.EnteredBackground += App_EnteredBackground;
+      //this.LeavingBackground += App_LeavingBackground;
     }
+
+    //AEV
+    private void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
+    {
+      if (MainPage.Current.GetExtendedExecutionResult != Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionResult.Allowed)
+      {
+        MainPage.Current.toastNotification();
+      }
+    }
+
+    ////AEV
+    //private void App_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
+    //{
+    //  //throw new NotImplementedException();
+    //}
 
     /// <summary>
     /// Invoked when the application is launched normally by the end user.  Other entry points

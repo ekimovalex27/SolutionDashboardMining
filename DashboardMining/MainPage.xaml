@@ -12,7 +12,7 @@
       <CommandBar.Content>
         <StackPanel Orientation="Horizontal">
           <TextBlock x:Uid="Main_BottomAppBar_Uptime" Text="Время работы Панели управления" Margin="10,14,0,0"/>
-          <TextBlock x:Name="txtUptime" Text="99 y 12 m 31 d 24 h 60 m" Margin="5,14,0,0" FontWeight="SemiBold" Width="190"/>
+          <TextBlock x:Name="txtUptime" Text="99 y 12 m 31 d 24 h 60 m 60 sec." Margin="5,14,0,0" FontWeight="SemiBold" Width="201"/>
           <TextBlock x:Uid="Main_BottomAppBar_CountFarm" Text="Количество ферм" Margin="30,14,0,0"/>
           <TextBlock x:Name="txtCountRigs" Text="999" Margin="5,14,0,0" FontWeight="SemiBold" Width="30" />
 
@@ -29,7 +29,7 @@
   </Page.BottomAppBar>
 
   <Grid>
-    <TextBlock x:Name="txtLicense" Text="Check license in Microsoft Store" Foreground="Orange" Margin="10,42,0,0" IsTextSelectionEnabled="True"/>
+    <TextBlock x:Name="txtLicense" Text="Checking license in Microsoft Store ..." Foreground="Red" Margin="10,42,0,0" IsTextSelectionEnabled="True"/>
 
     <Pivot>
       <PivotItem x:Uid="Dashboard" Header="Панель управления">
@@ -83,12 +83,12 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
-              <TextBlock x:Uid="Dashboard_Column_VideocardTemp" Text="Температура видеокарт" Margin="115,5,0,5"/>
+              <TextBlock x:Uid="Dashboard_Column_VideocardTemp" Text="Температура видеокарт" Margin="115,5,0,5" Tag="tempsAll"/>
               <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="tempsAll"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
-              <TextBlock x:Uid="Dashboard_Column_VideocardFan" Text="Вентиляторы видеокарт" Margin="20,5,0,5"/>
+              <TextBlock x:Uid="Dashboard_Column_VideocardFan" Text="Вентиляторы видеокарт" Margin="20,5,0,5" Tag="coolerAll"/>
               <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="coolerAll"/>
             </StackPanel>
           </StackPanel>
@@ -509,6 +509,36 @@
 
           </Grid>
 
+          <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1" Y1="0"/>
+
+          <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+            <TextBlock x:Uid="Settings_LicenseHeader_License" Text="Лицензия" Width="250" Margin="15,0,0,0"/>
+            <TextBlock x:Uid="Settings_LicenseHeader_Price" Text="Цена" Width="100" TextAlignment="Center"/>
+            <TextBlock x:Uid="Settings_LicenseHeader_Purchased" Text="Приобретено" Width="150" TextAlignment="Center"/>
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal">
+            <ListView x:Name="ProductsListView" BorderBrush="Black" BorderThickness="1" SelectionMode="Single" SingleSelectionFollowsFocus="False" Width="495">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Title}" Width="250" TextAlignment="Left" />
+                    <TextBlock  Text="{Binding Price}" Width="100" TextAlignment="Right" />
+                    <CheckBox IsChecked="{Binding InCollection}" IsEnabled="False" Width="150" Margin="60,0,0,0" />
+                  </StackPanel>
+
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="PurchaseAddOnButton" x:Uid="Settings_License_Purchase" Content="Купить выбранную лицензию"
+                    Margin="10"
+                    VerticalAlignment="Top"
+                    IsEnabled="{x:Bind local:BindingUtils.IsNonNull(ProductsListView.SelectedItem), FallbackValue=False, Mode=OneWay}"
+                    Click="PurchaseAddOnButton_Click"/>
+          </StackPanel>
+
         </StackPanel>
       </PivotItem>
 
@@ -638,7 +668,7 @@
                 <local:MiningObject/>
               </ComboBox.DataContext>
             </ComboBox>
-            <TextBox x:Name="txtLogin0" x:Uid="Login_txtLogin0" Grid.Row="0" Grid.Column="1" Tag="0" Header="Логин" Text="" Width="230" MaxLength="50" IsSpellCheckEnabled="False" HorizontalAlignment="Left"  TextChanged="txtLogin_TextChanged"/>
+            <TextBox x:Name="txtLogin0" x:Uid="Login_txtLogin0" Grid.Row="0" Grid.Column="1" Tag="0" Header="Логин" Width="230" MaxLength="50" IsSpellCheckEnabled="False" HorizontalAlignment="Left"  TextChanged="txtLogin_TextChanged" />
             <PasswordBox x:Name="pswPassword0" x:Uid="Login_pswPassword0" Grid.Row="0" Grid.Column="2" Tag="0" Header="Пароль" Width="400" InputScope="Password" MaxLength="200" HorizontalAlignment="Left" PasswordChanged="pswPassword_PasswordChanged" />
             
             <!--<RelativePanel Grid.Row="0" Grid.Column="3">

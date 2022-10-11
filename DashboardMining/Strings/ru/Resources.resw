@@ -522,4 +522,29 @@
   <data name="Notification_lblTelegramBotDescription24.Text" xml:space="preserve">
     <value>3. Проверка текущего состояния ферм</value>
   </data>
+  <data name="Settings_LicenseHeader_License.Text" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="Settings_LicenseHeader_Price.Text" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Settings_LicenseHeader_Purchased.Text" xml:space="preserve">
+    <value>Приобретено</value>
+  </data>
+  <data name="Settings_License_Purchase.Content" xml:space="preserve">
+    <value>Купить выбранный продукт</value>
+  </data>
+  <data name="Main_ToastNotification_Background1" xml:space="preserve">
+    <value>Внимание!
+</value>
+  </data>
+  <data name="Main_ToastNotification_Background2" xml:space="preserve">
+    <value>Этот компьютер не позволяет Dashboard Mining работать в фоновом режиме.</value>
+  </data>
+  <data name="Main_ToastNotification_Background3" xml:space="preserve">
+    <value>Переключите Dashboard Mining на передний план, чтобы приложение работало корректно.</value>
+  </data>
+  <data name="Main_LicenseText" xml:space="preserve">
+    <value>Вы можете контролировать только {0} ферм ({1} бесплатных и {2} купленных). Вы можете купить дополнительную лицензию на вкладке "Настройки"</value>
+  </data>
 </root>

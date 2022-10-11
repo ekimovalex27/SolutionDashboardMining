@@ -627,4 +627,28 @@
   <data name="Notification_lblTelegramBotDescription44.Text" xml:space="preserve">
     <value>3. Add the bot command /check. Set the description of this command, comfortable for you</value>
   </data>
+  <data name="Settings_LicenseHeader_License.Text" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Settings_LicenseHeader_Price.Text" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Settings_LicenseHeader_Purchased.Text" xml:space="preserve">
+    <value>Purchased</value>
+  </data>
+  <data name="Settings_License_Purchase.Content" xml:space="preserve">
+    <value>Purchase Selected Add-On</value>
+  </data>
+  <data name="Main_ToastNotification_Background1" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="Main_ToastNotification_Background2" xml:space="preserve">
+    <value>This computer does not allow Dashboard Mining to run in the background.</value>
+  </data>
+  <data name="Main_ToastNotification_Background3" xml:space="preserve">
+    <value>Switch the Dashboard Mining to the foreground so that the application works correctly.</value>
+  </data>
+  <data name="Main_LicenseText" xml:space="preserve">
+    <value>You can monitor {0} farms only ({1} free and {2} purchased) . You can buy add-on license at 'Settings' tab</value>
+  </data>
 </root>

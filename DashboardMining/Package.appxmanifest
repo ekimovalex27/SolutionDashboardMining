@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="JetSoftwareAndService.DashboardMining" Publisher="CN=3121E5C7-5583-4103-92A0-FA3355FC4579" Version="1.1.1.0" />
-  <mp:PhoneIdentity PhoneProductId="576661eb-340f-475b-a52a-923c77ae973f" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="JetSoftwareAndService.DashboardMining" Publisher="CN=3121E5C7-5583-4103-92A0-FA3355FC4579" Version="1.1.6.0" />
+  <mp:PhoneIdentity PhoneProductId="aa8f08ec-d14a-4790-b443-8f9b58cd8e30" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Dashboard Mining</DisplayName>
     <PublisherDisplayName>Jet Software And Service</PublisherDisplayName>

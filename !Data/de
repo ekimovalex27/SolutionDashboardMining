@@ -1,0 +1,15 @@
+https://web-ru.org/linux/klonirovanie-posredstvom-dd-v-linux.html
+
+sudo mount
+
+ll /dev/sd*
+sudo fdisk -l /dev/sda
+sudo fdisk -l /dev/sda
+
+sudo dd if=/dev/sda of=/dev/sdb bs=1M
+sudo dd if=/dev/sda of=/dev/sdb1/copy.iso bs=1M  status=progress
+sudo dd if=/dev/sda of=copy.iso bs=1M  status=progress
+
+sudo dd if=copy.iso of=/dev/sdc bs=1M  status=progress
+
+fdisk -l /dev/sdb

@@ -116,6 +116,52 @@ namespace DashboardMining
     public int MessageId { get; set; }
   }
 
+  public enum NotifyType{StatusMessage, ErrorMessage};
+
+  public class StoreItemDetails
+  {
+    public string Title { get; private set; }
+    public string Price { get; private set; }
+    public bool InCollection { get; private set; }
+    public string ProductKind { get; private set; }
+    public string StoreId { get; private set; }
+    public string FormattedTitle => $"{Title} ({ProductKind}) {Price}, InUserCollection:{InCollection}";
+
+    public StoreItemDetails(Windows.Services.Store.StoreProduct product)
+    {
+      Title = product.Title;
+      Price = product.Price.FormattedPrice;
+      InCollection = product.IsInUserCollection;
+      ProductKind = product.ProductKind;
+      StoreId = product.StoreId;
+    }
+  }
+
+  public static class BindingUtils
+  {
+    // Helper function for binding.
+    public static bool IsNonNull(object o)
+    {
+      if (o == null)
+      {
+        return false;
+      }
+      else
+      {
+        if ((o as StoreItemDetails).InCollection)
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      }
+
+      //return o != null;
+    }
+  }
+
   class SharedClass
   {
     //private static ResourceLoader resourceLoader = new ResourceLoader();
@@ -129,6 +175,12 @@ namespace DashboardMining
     private static ApplicationDataContainer containerLogin = appSettings.CreateContainer("Login", ApplicationDataCreateDisposition.Always);
     private static ApplicationDataContainer containerEvent = appSettings.CreateContainer("Event", ApplicationDataCreateDisposition.Always);
     private static ApplicationDataContainer containerTelegramBot = appSettings.CreateContainer("TelegramBot", ApplicationDataCreateDisposition.Always);
+
+    public static string Main_ToastNotification_Background1 { get { return resourceLoader.GetString("Main_ToastNotification_Background1") ?? ""; } }
+    public static string Main_ToastNotification_Background2 { get { return resourceLoader.GetString("Main_ToastNotification_Background2") ?? ""; } }
+    public static string Main_ToastNotification_Background3 { get { return resourceLoader.GetString("Main_ToastNotification_Background3") ?? ""; } }
+
+    public static string Main_LicenseText { get { return resourceLoader.GetString("Main_LicenseText") ?? ""; } }
 
     public static string DashboardOrderColumn
     {

@@ -15,6 +15,7 @@ public static class SharedLibraryDashboardMining
 
   private static Uri SimpleMiningNet_URI_Main = new Uri(SimpleMiningNet);
   private static Uri SimpleMiningNet_URI_Login = new Uri(SimpleMiningNet_Login);
+  private static string SimpleMiningNet_Main_Host = "simplemining.net";
 
   //private static string SimpleMining_UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; WebView/3.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"; //WebView
   private static string SimpleMining_UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"; //Microsoft Edge
@@ -33,6 +34,11 @@ public static class SharedLibraryDashboardMining
   public static Uri GetSimpleMiningNetURILogin()
   {
     return SimpleMiningNet_URI_Login;
+  }
+
+  public static string GetSimpleMiningNetMainHost()
+  {
+    return SimpleMiningNet_Main_Host;
   }
 
   private static string GetRandomString(int lengthString)

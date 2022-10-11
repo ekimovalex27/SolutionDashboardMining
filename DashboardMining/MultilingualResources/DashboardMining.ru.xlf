@@ -686,6 +686,39 @@
           <source>3. Check current state of farms</source>
           <target state="translated">3. Проверка текущего состояния ферм</target>
         </trans-unit>
+        <trans-unit id="Settings_LicenseHeader_License.Text" translate="yes" xml:space="preserve">
+          <source>Product</source>
+          <target state="translated">Продукт</target>
+        </trans-unit>
+        <trans-unit id="Settings_LicenseHeader_Price.Text" translate="yes" xml:space="preserve">
+          <source>Price</source>
+          <target state="translated" state-qualifier="tm-suggestion">Цена</target>
+        </trans-unit>
+        <trans-unit id="Settings_LicenseHeader_Purchased.Text" translate="yes" xml:space="preserve">
+          <source>Purchased</source>
+          <target state="translated" state-qualifier="tm-suggestion">Приобретено</target>
+        </trans-unit>
+        <trans-unit id="Settings_License_Purchase.Content" translate="yes" xml:space="preserve">
+          <source>Purchase Selected Add-On</source>
+          <target state="translated">Купить выбранный продукт</target>
+        </trans-unit>
+        <trans-unit id="Main_ToastNotification_Background1" translate="yes" xml:space="preserve">
+          <source>Attention!</source>
+          <target state="translated">Внимание!
+</target>
+        </trans-unit>
+        <trans-unit id="Main_ToastNotification_Background2" translate="yes" xml:space="preserve">
+          <source>This computer does not allow Dashboard Mining to run in the background.</source>
+          <target state="translated">Этот компьютер не позволяет Dashboard Mining работать в фоновом режиме.</target>
+        </trans-unit>
+        <trans-unit id="Main_ToastNotification_Background3" translate="yes" xml:space="preserve">
+          <source>Switch the Dashboard Mining to the foreground so that the application works correctly.</source>
+          <target state="translated">Переключите Dashboard Mining на передний план, чтобы приложение работало корректно.</target>
+        </trans-unit>
+        <trans-unit id="Main_LicenseText" translate="yes" xml:space="preserve">
+          <source>You can monitor {0} farms only ({1} free and {2} purchased) . You can buy add-on license at 'Settings' tab</source>
+          <target state="translated">Вы можете контролировать только {0} ферм ({1} бесплатных и {2} купленных). Вы можете купить дополнительную лицензию на вкладке "Настройки"</target>
+        </trans-unit>
       </group>
     </body>
   </file>

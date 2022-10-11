@@ -1,0 +1,15 @@
+{{
+  "check": "<input type=\"checkbox\" name=\"rig[]\" class=\"tbl-checkbox\" value=\"5919096\" />",
+  "notes": "<span data-toggle=\"modal\" data-target=\"#modalDescription\" class=\"change-description-icon table-blue-url\" data-id=\"5919096\">-</span>",
+  "name": "<span data-toggle=\"modal\" data-target=\"#modalChangeName\" class=\"change-name-icon table-blue-url\" data-name=\"EM_04_6\" data-id=\"5919096\"><span data-toggle=\"tooltip\" title=\"OS Version: NV 1160<br />Rig ID: 5919096<br /> IP: 192.168.0.7<br />Linux Kernel: 4.11.12-041112-generic<br />AMDGPU: \">EM_04_6</span></span>",
+  "version": "NV 1160",
+  "valueLastUpdate": 19,
+  "lastUpdate": "<span data-toggle=\"tooltip\" title=\"Rig Uptime: up 1 day, 6 hours, 38 minutes<br />Miner program started: 2018-03-16 00:58:28<br />NOW server time is: 2018-04-09 17:17:28<br /> <b>Last seen: 2018-04-09 17:17:09 <br /> Last seen: 19 seconds ago</b><br />Total restarts: 53 \"> ON(53)</span>",
+  "speed": "<span data-toggle=\"tooltip\" title=\"GPU0: 23.47 MH/s<br />GPU1: 23.44 MH/s<br />GPU2: 23.29 MH/s<br />GPU3: 22.96 MH/s<br />GPU4: 23.44 MH/s<br />GPU5: 23.43 MH/s<br /> <br /> Dual mining: <br /> \">140.04 MH/s </span>",
+  "temps": "<span data-toggle=\"tooltip\" title=\"56 57 59 58 60 62 ?<br />70 70 70 70 70 70 %\">62?<br />70 %</span>",
+  "gpuCoreMemory": "<small>1303 1290 1164 1113 1303 1151 (70)<br />4455 4455 4455 4455 4455 4455 </small>",
+  "id": "5919096",
+  "group": "Патриот",
+  "console": "",
+  "menu": "<a data-toggle='modal' data-target='#modalConsole' class='icon-table-rig icon-console' data-id='5919096' href='#'><i data-toggle='tooltip' title='Console' class='glyphicon glyphicon-blackboard gi-3x'> </i> </a><a data-toggle='modal' data-target='#modalOC' href='#' class='icon-table-rig icon-oc' data-id='5919096'><i data-toggle='tooltip' title='Overclocking' class='glyphicon glyphicon-cog gi-3x'> </i></a><a data-toggle='modal' data-target='#modalReload' class='icon-table-rig icon-reload' data-id='5919096' href='#' ><i data-toggle='tooltip' title='Reload miner program' class='glyphicon glyphicon-refresh gi-3'> </i> </a><a data-toggle='modal' data-target='#modalReboot' class='icon-table-rig icon-reboot' data-id='5919096' href='#' ><i data-toggle='tooltip' title='Reboot Rig' class='glyphicon glyphicon-flash gi-3x'> </i> </a><a data-toggle='modal' data-target='#modalSRR' data-id='5919096' href='#' class='icon-table-rig srr-icon'><i data-toggle='tooltip' title='SRR' class='glyphicon glyphicon-qrcode gi-3x'> </i> </a><a data-toggle='modal' data-target='#modalDelete' data-id='5919096' class='icon-table-rig remove-rig' href='#'><i data-toggle='tooltip' title='Delete' class='glyphicon glyphicon-remove gi-3x'> </i> </a>"
+}}

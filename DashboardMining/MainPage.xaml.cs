@@ -29,6 +29,10 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Services.Store;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using Windows.System.Threading;
+using Windows.ApplicationModel.ExtendedExecution;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,8 +45,9 @@ namespace DashboardMining
   public sealed partial class MainPage : Page
   {
     #region Define vars
-    private StoreContext contextLicense = null;
-    private StoreAppLicense appLicense = null;
+    public static MainPage Current;
+
+    private StoreContext storeContext = StoreContext.GetDefault();
 
     private CancellationTokenSource cts = null;
 
@@ -57,26 +62,129 @@ namespace DashboardMining
 
     int SimpleMiningCountLogin;
     int SimpleMiningCountMain;
+    int SimpleMiningCountRigs;
+
+    readonly int LicenseCountFreeRigs = 5;
+    int LicenseCountRigs;
     #endregion Define vars
 
     public MainPage()
     {
       this.InitializeComponent();
+
+      Current = this;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+      await BeginExtendedExecution();
       Init();
-      await InitializeLicense();
+      await LicenseAddon();
     }
+
+    #region Execution in Background
+    private ExtendedExecutionSession executionSession = null;
+    private ExtendedExecutionResult executionResult;
+
+    public ExtendedExecutionResult GetExtendedExecutionResult => executionResult;
+
+    public void toastNotification()
+    {
+      string xml = $@"
+            <toast activationType='foreground'>
+                <visual>
+                    <binding template='ToastGeneric'>
+                        <text>{SharedClass.Main_ToastNotification_Background1}</text>
+                        <text>{SharedClass.Main_ToastNotification_Background2}</text>
+                        <text>{SharedClass.Main_ToastNotification_Background3}</text>
+                    </binding>
+                </visual>
+            </toast>";
+
+      var doc = new XmlDocument();
+      doc.LoadXml(xml);
+
+      var notification = new ToastNotification(doc);
+      var notifier = ToastNotificationManager.CreateToastNotifier();
+      notifier.Show(notification);
+    }
+
+    private async Task BeginExtendedExecution()
+    {
+      ClearExtendedExecution();
+
+      var newSession = new ExtendedExecutionSession();
+      newSession.Reason = ExtendedExecutionReason.Unspecified;
+      newSession.Description = "Background work of timers";
+      newSession.Revoked += SessionRevoked;
+      executionResult = await newSession.RequestExtensionAsync();
+
+      switch (executionResult)
+      {
+        case ExtendedExecutionResult.Allowed:
+          //rootPage.NotifyUser("Extended execution allowed.", NotifyType.StatusMessage);
+          executionSession = newSession;
+          //periodicTimer = new Timer(OnTimer, DateTime.Now, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10));
+          break;
+
+        default:
+        case ExtendedExecutionResult.Denied:
+          //rootPage.NotifyUser("Extended execution denied.", NotifyType.ErrorMessage);
+          newSession.Dispose();
+          break;
+      }
+
+      //For test
+      //executionResult = ExtendedExecutionResult.Denied;
+    }
+
+    private async void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+    {
+      await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+      {
+        switch (args.Reason)
+        {
+          case ExtendedExecutionRevokedReason.Resumed:
+            //rootPage.NotifyUser("Extended execution revoked due to returning to foreground.", NotifyType.StatusMessage);
+            break;
+
+          case ExtendedExecutionRevokedReason.SystemPolicy:
+            //rootPage.NotifyUser("Extended execution revoked due to system policy.", NotifyType.StatusMessage);
+            break;
+        }
+
+        EndExtendedExecution();
+      });
+    }
+
+    void ClearExtendedExecution()
+    {
+      if (executionSession != null)
+      {
+        executionSession.Revoked -= SessionRevoked;
+        executionSession.Dispose();
+        executionSession = null;
+      }
+    }
+
+    private void EndExtendedExecution()
+    {
+      ClearExtendedExecution();
+    }
+
+    #endregion Execution in Background
 
     private async void Init()
     {
-      // For TEST ONLY
+      // For TEST
       //SharedClass.SaveLogout("0"); SharedClass.SaveLogout("1");
 
+      // For TEST
       //Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US";
       //Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "ru";
+
+      LicenseCountRigs = LicenseCountFreeRigs;
+
       ApplicationVersion.Text = SharedClass.ApplicationFullVersion;
 
       txtCountRigs.Text = "0";
@@ -136,6 +244,10 @@ namespace DashboardMining
       txtLogin0.Text = ListLoginMining[0].Login; pswPassword0.Password = ListLoginMining[0].Password; //txtCaptcha0.Text = ListLoginMining[0].SimpleMining_Captcha;
       txtLogin1.Text = ListLoginMining[1].Login; pswPassword1.Password = ListLoginMining[1].Password; //txtCaptcha1.Text = ListLoginMining[1].SimpleMining_Captcha;
 
+#if DEBUG
+      txtLogin0.Text = "";
+      pswPassword0.Password = "";
+#endif
       lvEvent.ItemsSource = SharedClass.ListEvent.OrderByDescending(item => item.datetime);
 
       #region Set Selected Item In ComboBox
@@ -175,6 +287,7 @@ namespace DashboardMining
       #endregion Timers
 
       #region Telegram
+
       txtTelegramBotDashboardName.Text = SharedClass.TelegramBotDashboardName;
       txtTelegramBotToken.Text = SharedClass.TelegramBotToken;
       lvTelegramBotList.ItemsSource = SharedClass.ListTelegramBot;
@@ -188,67 +301,149 @@ namespace DashboardMining
         tsTelegramBot.IsOn = SharedClass.IsTelegramBot;
       }
 
-      await Task.Factory.StartNew(async () => { await TelegramBotMessageParse(); });
+      await Task.Factory.StartNew(function: async () => { await TelegramBotMessageParse(); });
 
       #endregion Telegram      
-
-      txtLicense.Text = "";
+      
       ButtonCheckLogin();
     }
 
-    private async Task InitializeLicense()
+    #region License
+    private async Task LicenseAddon()
     {
-      if (contextLicense == null) contextLicense = StoreContext.GetDefault();
+      //string[] productKinds = { "Application", "Game", "Consumable", "UnmanagedConsumable", "Durable" };
+      string[] productKinds = { "Durable" };
 
-      // Register for the licenced changed event.
-      contextLicense.OfflineLicensesChanged += context_OfflineLicensesChanged;
-
-      await GetLicenseStateAsync();
+      StoreProductQueryResult queryResult = await storeContext.GetAssociatedStoreProductsAsync(new List<string>(productKinds));
+      ProductsListView.ItemsSource = CreateProductListFromQueryResult(queryResult, "Add-Ons");
+      txtLicense.Text = "";
     }
 
-    private void context_OfflineLicensesChanged(StoreContext sender, object args)
+    public ObservableCollection<StoreItemDetails> CreateProductListFromQueryResult(StoreProductQueryResult addOns, string description)
     {
-      var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-      {
-        await GetLicenseStateAsync();
-      });
-    }
-
-    private async Task GetLicenseStateAsync()
-    {
-#if DEBUG
-      Debug.WriteLine("{0} GetLicenseStateAsync", DateTime.Now.ToString());
-      appLicense = await contextLicense.GetAppLicenseAsync();
-      Debug.WriteLine("{0} appLicense.IsActive={1}, appLicense.IsTrial={2}, appLicense.ExpirationDate={3}, appLicense.TrialTimeRemaining={4}", DateTime.Now.ToString(), appLicense.IsActive, appLicense.IsTrial, appLicense.ExpirationDate, appLicense.TrialTimeRemaining);
-      var IsActive = true;
-#else
-      appLicense = await contextLicense.GetAppLicenseAsync();
-      var IsActive = appLicense.IsActive;
+      LicenseCountRigs = LicenseCountFreeRigs;
+#if DEBUG      
+      LicenseCountRigs = 999;
 #endif
 
-      if (IsActive)
+      var productList = new ObservableCollection<StoreItemDetails>();
+
+      if (addOns.ExtendedError != null)
       {
-        if (appLicense.IsTrial)
-        {
-          txtLicense.Text = $"This is the trial version. Expiration date: {appLicense.ExpirationDate}. You can buy 'Dashboard Mining' in the Microsoft Store";
-        }
-        else
-        {
-          txtLicense.Text = "";
-        }
+        ReportExtendedError(addOns.ExtendedError);
+      }
+      else if (addOns.Products.Count == 0)
+      {
+        //MainPage.Current.NotifyUser($"No configured {description} found for this Store Product.", NotifyType.ErrorMessage);
       }
       else
       {
-        StopCheckMining();
-        txtLicense.Text = $"The trial license is expired. Expiration date: {appLicense.ExpirationDate}. You can buy 'Dashboard Mining' in the Microsoft Store";
-        txtLicense.Foreground = new SolidColorBrush(Windows.UI.Colors.Red);
+        foreach (StoreProduct product in addOns.Products.Values.OrderBy(item => item.InAppOfferToken))
+        {
+          productList.Add(new StoreItemDetails(product));
+
+          if (product.IsInUserCollection)
+          {
+            LicenseCountRigs += Convert.ToInt32(product.InAppOfferToken.Substring(3));
+          }
+        }
       }
+
+      return productList;
     }
+
+    static int IAP_E_UNEXPECTED = unchecked((int)0x803f6107);
+
+    public static void ReportExtendedError(Exception extendedError)
+    {
+      string message;
+      if (extendedError.HResult == IAP_E_UNEXPECTED)
+      {
+        message = "This sample has not been properly configured. See the README for instructions.";
+      }
+      else
+      {
+        // The user may be offline or there might be some other server failure.
+        message = $"ExtendedError: {extendedError.Message}";
+      }
+      //MainPage.Current.NotifyUser(message, NotifyType.ErrorMessage);
+    }
+
+    private async void PurchaseAddOnButton_Click(object sender, RoutedEventArgs e)
+    {
+      var item = (StoreItemDetails)ProductsListView.SelectedItem;
+
+      StorePurchaseResult result = await storeContext.RequestPurchaseAsync(item.StoreId);
+      if (result.ExtendedError != null)
+      {
+        ReportExtendedError(result.ExtendedError);
+        return;
+      }
+
+      switch (result.Status)
+      {
+        case StorePurchaseStatus.AlreadyPurchased:
+          //rootPage.NotifyUser($"You already bought this AddOn.", NotifyType.ErrorMessage);
+          break;
+
+        case StorePurchaseStatus.Succeeded:
+          //rootPage.NotifyUser($"You bought {item.Title}.", NotifyType.StatusMessage);
+          txtLicense.Text = "";
+          break;
+
+        case StorePurchaseStatus.NotPurchased:
+          //rootPage.NotifyUser("Product was not purchased, it may have been canceled.", NotifyType.ErrorMessage);
+          break;
+
+        case StorePurchaseStatus.NetworkError:
+          //rootPage.NotifyUser("Product was not purchased due to a network error.", NotifyType.ErrorMessage);
+          break;
+
+        case StorePurchaseStatus.ServerError:
+          //rootPage.NotifyUser("Product was not purchased due to a server error.", NotifyType.ErrorMessage);
+          break;
+
+        default:
+          //rootPage.NotifyUser("Product was not purchased due to an unknown error.", NotifyType.ErrorMessage);
+          break;
+      }
+
+      await LicenseAddon();
+    }
+
+    public async Task GetAppInfo()
+    {
+      // Get app store product details. Because this might take several moments,   
+      // display a ProgressRing during the operation.
+      //workingProgressRing.IsActive = true;
+      StoreProductResult queryResult = await storeContext.GetStoreProductForCurrentAppAsync();
+      //workingProgressRing.IsActive = false;
+
+      if (queryResult.Product == null)
+      {
+        // The Store catalog returned an unexpected result.
+        //textBlock.Text = "Something went wrong, and the product was not returned.";
+
+        // Show additional error info if it is available.
+        if (queryResult.ExtendedError != null)
+        {
+          //textBlock.Text += $"\nExtendedError: {queryResult.ExtendedError.Message}";
+        }
+
+        return;
+      }
+
+      // Display the price of the app.
+      //textBlock.Text = $"The price of this app is: {queryResult.Product.Price.FormattedBasePrice}";
+    }
+    #endregion License
 
     private void TimerUptime_Tick(object sender, object e)
     {
       txtUptime.Text = SharedClass.GetTimeSpanShow(DateTime.Now.Subtract(SharedClass.StartDashboardMining), EnumDuringShow.Seconds);
     }
+
+    #region PivotItemDashboard
 
     private void ButtonCheckLogin()
     {
@@ -326,16 +521,6 @@ namespace DashboardMining
           cmdStart.IsEnabled = true; cmdStop.IsEnabled = false; cmdGetRigs.IsEnabled = true;
         }
       }
-
-      if (appLicense != null && !appLicense.IsActive)
-      {
-#if RELEASE
-        StopCheckMining();
-#endif
-      }
-
-      ////For TEST ONLY
-      //cmdStart.IsEnabled = true; cmdStop.IsEnabled = true; cmdGetRigs.IsEnabled = true;
     }
 
     private void StopCheckMining()
@@ -351,7 +536,6 @@ namespace DashboardMining
       lblCheckTimeSeconds.Visibility = Visibility.Collapsed;
     }
 
-    #region PivotItemDashboard
     private void ButtonShowDisable()
     {
       Button cmdButton;
@@ -483,7 +667,7 @@ namespace DashboardMining
     {
       JObject resultJsonTask; string errorMessage;
 
-      var resultListRigs = await SharedLibraryDashboardMining.GetListRigsAsync(token, SimpleMining_cfduid, SimpleMining_cflb, SimpleMining_PHPSESSID);
+      var resultListRigs = await SharedLibrary.GetListRigsAsync(token, SimpleMining_cfduid, SimpleMining_cflb, SimpleMining_PHPSESSID);
 
       if (string.IsNullOrEmpty(resultListRigs.Item2) && !string.IsNullOrEmpty(resultListRigs.Item1))
       {
@@ -579,6 +763,8 @@ namespace DashboardMining
       StringBuilder errorMessageTotal = new StringBuilder();
       JObject resultJson;
       SandboxObject foundSandboxObject;
+
+      bool IsLicenseExceed = false;
       #endregion Define vars
 
       txtError.Text = "";
@@ -616,8 +802,8 @@ namespace DashboardMining
               #region Parse IP
               try
               {
-                pos1 = name.IndexOf("IP:") + 3;
-                pos2 = name.Substring(pos1).IndexOf("<br");
+                pos1 = name.IndexOf("LAN ip:") + 16;
+                pos2 = name.Substring(pos1).IndexOf("</td></tr>");
                 if (pos1 > 2 && pos2 != -1)
                 {
                   ip = name.Substring(pos1, pos2).Trim();
@@ -670,9 +856,17 @@ namespace DashboardMining
               #region Parse speed            
               try
               {
-                if (speed.IndexOf("title") <= 0) throw new ArgumentException("Speed is fail from farm with id=" + id);
+                if (speed.IndexOf("title") <= 0)
+                {
+                  throw new ArgumentException("Speed is fail from farm with id=" + id);
+                }
+
                 aSpeedTemp = speed.Split(new string[1] { "GPU" }, StringSplitOptions.None);
-                if (aSpeedTemp.Length == 1) throw new ArgumentException("Speed is fail from farm with id=" + id);
+                if (aSpeedTemp.Length == 1)
+                {
+                  throw new ArgumentException("Speed is fail from farm with id=" + id);
+                }
+
                 aSpeed = new double[aSpeedTemp.Length - 1];
 
                 for (int i = 1; i < aSpeedTemp.Length; i++)
@@ -715,12 +909,26 @@ namespace DashboardMining
                 try
                 {
                   aCoolerTemp = CutHtml(aTempsCooler[1]).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                  aCooler = new double[aCoolerTemp.Length - 1];
+                  if (aTempsCooler[1].IndexOf("color:") == -1)
+                  {
+                    aCooler = new double[aCoolerTemp.Length - 1];
+                  }
+                  else
+                  {
+                    aCooler = new double[aCoolerTemp.Length - 2];
+                  }
 
                   aCooler[0] = double.Parse(aCoolerTemp[0].Substring(2), CultureInfo.InvariantCulture);
-                  for (int i = 1; i < aCoolerTemp.Length - 1; i++)
+                  for (int i = 1; i < aCooler.Length; i++)
                   {
-                    aCooler[i] = double.Parse(aCoolerTemp[i], CultureInfo.InvariantCulture);
+                    try
+                    {
+                      aCooler[i] = double.Parse(aCoolerTemp[i], CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
                   }
                   coolerAll = GetStringFromList("", aCooler);
                 }
@@ -744,7 +952,16 @@ namespace DashboardMining
                 foundRigObject = ListRig.FirstOrDefault(item => item.id == id);
 
                 if (foundRigObject == null)
-                  ListRig.Add(GetNewRig(LoginMiningItem.Login, id, group, tempName, ip, state, aSpeed, speedAll, aTemps, tempsAll, aCooler, coolerAll, LastUpdate));
+                {
+                  if (ListRig.Count < LicenseCountRigs)
+                  {
+                    ListRig.Add(GetNewRig(LoginMiningItem.Login, id, group, tempName, ip, state, aSpeed, speedAll, aTemps, tempsAll, aCooler, coolerAll, LastUpdate));
+                  }
+                  else
+                  {
+                    IsLicenseExceed = true;
+                  }
+                }
                 else if (foundRigObject.ip != ip || foundRigObject.state != state || foundRigObject.speedAll != speedAll || foundRigObject.tempsAll != tempsAll || foundRigObject.coolerAll != coolerAll)
                 {
                   IndexOfRigObject = ListRig.IndexOf(foundRigObject);
@@ -802,6 +1019,16 @@ namespace DashboardMining
       {
         txtError.Visibility = Visibility.Visible;
       }
+
+      if (IsLicenseExceed)
+      {
+        //txtLicense.Text = $"You can monitor {LicenseCountRigs} farms only ({LicenseCountFreeRigs} free and {LicenseCountRigs - LicenseCountFreeRigs} purchased) . You can buy add-on license at 'Settings' tab";
+        txtLicense.Text = string.Format(SharedClass.Main_LicenseText, LicenseCountRigs, LicenseCountFreeRigs, LicenseCountRigs - LicenseCountFreeRigs);
+      }
+      else
+      {
+        txtLicense.Text = "";
+      }
     }
 
     private RigObject GetNewRig(string Login, string id, string group, string name, string ip, string state, double[] speed, string speedAll, double[] temps, string tempsAll, double[] cooler, string coolerAll, DateTime LastUpdate)
@@ -825,6 +1052,19 @@ namespace DashboardMining
         CountRestart = 0
       };
       return rig;
+    }
+
+    private void RemoveRigProblemFromSandbox(RigObject rig, EnumFarmProblem FarmProblem)
+    {
+      int countListSandbox = ListSandbox.Count;
+      for (int i = countListSandbox - 1; i >= 0; i--)
+      {
+        if (ListSandbox[i].id == rig.id && ListSandbox[i].FarmProblem == FarmProblem)
+        {
+          ListSandbox.Remove(ListSandbox[i]);
+          countListSandbox = ListSandbox.Count;
+        }
+      }
     }
 
     private async Task CheckRigs()
@@ -896,6 +1136,7 @@ namespace DashboardMining
             }
             else
             {
+              RemoveRigProblemFromSandbox(rig, EnumFarmProblem.TheVideocardIsRunningSlowly);
               if (foundSandboxObject == null) ListSandbox.Add(GetNewSandboxObject(rig, "", EnumFarmProblem.NoVideocardSpeedInfo));
             }
           }
@@ -946,6 +1187,9 @@ namespace DashboardMining
             }
             else
             {
+              RemoveRigProblemFromSandbox(rig, EnumFarmProblem.VideocardTemperatureLow);
+              RemoveRigProblemFromSandbox(rig, EnumFarmProblem.VideocardTemperatureHigh);
+
               if (foundSandboxObject == null) ListSandbox.Add(GetNewSandboxObject(rig, "", EnumFarmProblem.NoVideocardTemperatureInformation));
             }
           }
@@ -956,7 +1200,7 @@ namespace DashboardMining
           if (IsRigOn) //Farm is available (ON)
           {
             foundSandboxObject = ListSandbox.FirstOrDefault(item => item.id == rig.id && item.FarmProblem == EnumFarmProblem.NoFanDataOnVideocards);
-            if (rig.cooler.Count() > 0)
+            if (rig.cooler.Count() > 0 && rig.cooler.Sum() > 0)
             {
               if (foundSandboxObject != null) ListSandbox.Remove(foundSandboxObject);
 
@@ -996,6 +1240,9 @@ namespace DashboardMining
             }
             else
             {
+              RemoveRigProblemFromSandbox(rig, EnumFarmProblem.TheFanOnVideocardIsWeak);
+              RemoveRigProblemFromSandbox(rig, EnumFarmProblem.TheFanOnVideocardSpinsHard);
+
               if (foundSandboxObject == null) ListSandbox.Add(GetNewSandboxObject(rig, "", EnumFarmProblem.NoFanDataOnVideocards));
             }
           }
@@ -1286,7 +1533,7 @@ namespace DashboardMining
             Rig.LastRestart = DateTime.Now;
             foundLoginMining = SharedClass.ListLoginMining.First(itemLogin => itemLogin.Login == Rig.Login);
 
-            await SharedLibraryDashboardMining.RebootAsync((int)EnumMining.SimpleMiningNet, Rig.id, foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_PHPSESSID);
+            await SharedLibrary.RebootAsync((int)EnumMining.SimpleMiningNet, Rig.id, foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_PHPSESSID);
             SharedClass.EventSave(Rig.id, Rig.group, Rig.name, Sandbox.FarmProblem, Sandbox.during, FarmAction, Rig.ip, Sandbox.details, Rig.CountRestart);
           }
           break;
@@ -1378,7 +1625,6 @@ namespace DashboardMining
         tempList.Clear(); tempList = null;
       }
     }
-
 
     #endregion PivotItemDashboard
 
@@ -1761,7 +2007,7 @@ namespace DashboardMining
             //if (ct.IsCancellationRequested) break;
 
             if (QueueTelegramMessageReceive.TryDequeue(out var TelegramMessage))
-            {              
+            {
               #region Обработка команд
               if (!string.IsNullOrEmpty(TelegramMessage.Text))
               {
@@ -2152,17 +2398,6 @@ namespace DashboardMining
         else
           lblTelegramBotTokenError.Visibility = Visibility.Visible;
 
-        //SetListTelegramChat();
-
-        //if (SharedClass.ListTelegramBot.Count > 0)
-        //{
-        //  lblTelegramBotAllowError.Visibility = Visibility.Collapsed;
-        //}
-        //else
-        //{
-        //  lblTelegramBotAllowError.Visibility = Visibility.Visible;
-        //}
-
         if (!string.IsNullOrEmpty(txtTelegramBotDashboardName.Text) && !string.IsNullOrEmpty(txtTelegramBotToken.Text) && SharedClass.ListTelegramBot.Count > 0)
         {
           timerTelegram.Start();
@@ -2270,6 +2505,8 @@ namespace DashboardMining
         }
 
         txtTelegramBotPhone.Text = "";
+
+        TelegramBotCheckState();
       }
       else
       {
@@ -2286,6 +2523,8 @@ namespace DashboardMining
         {
           SharedClass.TelegramBotRemove(SelectedTelegramBot.PhoneNumber);
           lvTelegramBotList.ItemsSource = SharedClass.ListTelegramBot;
+
+          TelegramBotCheckState();
         }
       }
 
@@ -2337,33 +2576,33 @@ namespace DashboardMining
         var cbMining = FindName("cbMining" + LoginId) as ComboBox;
         var wvCaptcha = FindName("wvCaptcha" + LoginId) as WebView;
 
-        SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+        SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0; SimpleMiningCountRigs = 0;
 
         #region Cookies
         var baseFilter = new HttpBaseProtocolFilter();
-        var cookies = baseFilter.CookieManager.GetCookies(SharedLibraryDashboardMining.GetSimpleMiningNetURIMain());
+        var cookies = baseFilter.CookieManager.GetCookies(SharedLibrary.GetSimpleMiningNetURIMain());
 
         var cookiePHPSESSID = cookies.FirstOrDefault(cookie => cookie.Name == "PHPSESSID");
         if (cookiePHPSESSID == null) cookiePHPSESSID = new HttpCookie("PHPSESSID", "simplemining.net", "/");
-        cookiePHPSESSID.Value = SharedLibraryDashboardMining.GetSimpleMining_PHPSESSID();
+        cookiePHPSESSID.Value = SharedLibrary.GetSimpleMining_PHPSESSID();
         baseFilter.CookieManager.SetCookie(cookiePHPSESSID);
 
         var cookie__cfduid = cookies.FirstOrDefault(cookie => cookie.Name == "__cfduid");
         if (cookie__cfduid == null) cookie__cfduid = new HttpCookie("__cfduid", "simplemining.net", "/");
-        cookie__cfduid.Value = SharedLibraryDashboardMining.GetSimpleMining_cfduid();
+        cookie__cfduid.Value = SharedLibrary.GetSimpleMining_cfduid();
         baseFilter.CookieManager.SetCookie(cookie__cfduid);
 
         var cookie__cflb = cookies.FirstOrDefault(cookie => cookie.Name == "__cflb");
         if (cookie__cflb == null) cookie__cflb = new HttpCookie("__cflb", "simplemining.net", "/");
-        cookie__cflb.Value = SharedLibraryDashboardMining.GetSimpleMining_cflb();
+        cookie__cflb.Value = SharedLibrary.GetSimpleMining_cflb();
         baseFilter.CookieManager.SetCookie(cookie__cflb);
 
         SharedClass.SaveLoginCookie(LoginId, (cbMining.SelectedItem as MiningObject).Mining, cookie__cfduid.Value, cookie__cflb.Value, cookiePHPSESSID.Value);
         #endregion Cookies
 
         #region Load Login page
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, SharedLibraryDashboardMining.GetSimpleMiningNetURILogin());
-        httpRequestMessage.Headers.Append("Referer", SharedLibraryDashboardMining.GetSimpleMiningNetMain());
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, SharedLibrary.GetSimpleMiningNetURILogin());
+        httpRequestMessage.Headers.Append("Referer", SharedLibrary.GetSimpleMiningNetMain());
         wvCaptcha.NavigateWithHttpRequestMessage(httpRequestMessage);
         #endregion Load Login page
 
@@ -2371,7 +2610,7 @@ namespace DashboardMining
       }
       catch (Exception ex)
       {
-        await ShowDialog("Login: "+ex.ToString());
+        await ShowDialog("Login: " + ex.ToString());
       }
     }
 
@@ -2395,17 +2634,22 @@ namespace DashboardMining
 
     private void Wb_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
     {
-      if (args.Uri == SharedLibraryDashboardMining.GetSimpleMiningNetURILogin())
+      if (args.Uri == SharedLibrary.GetSimpleMiningNetURILogin())
       {
         SimpleMiningCountLogin++;
-        //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + "https://simplemining.net/account/login");
+        //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + SharedLibrary.GetSimpleMiningNetURILogin().AbsoluteUri);
       }
-      else if (args.Uri == SharedLibraryDashboardMining.GetSimpleMiningNetURIMain())
+      else if (args.Uri == SharedLibrary.GetSimpleMiningNetURIMain())
       {
         SimpleMiningCountMain++;
-        //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + "https://simplemining.net/");
+        //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + SharedLibrary.GetSimpleMiningNetURIMain().AbsoluteUri);
       }
-      else
+      else if (args.Uri == SharedLibrary.GetSimpleMiningNetURIRigs()) // Получен запрос на список Rigs. Значит, вход удачный
+      {
+        SimpleMiningCountRigs++;
+        //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + SharedLibrary.GetSimpleMiningNetRigs());
+      }
+      else // На остальные URI не переходить
       {
         //Debug.WriteLine(DateTime.Now.ToString() + " " + "Wb_NavigationStarting. " + "Some URI:" + args.Uri.ToString());
         args.Cancel = true;
@@ -2418,11 +2662,15 @@ namespace DashboardMining
 
     private void WvCaptcha_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
     {
-      if (args.Uri == new Uri("https://simplemining.net/account/login"))
+      if (args.Uri == SharedLibrary.GetSimpleMiningNetURILogin())
       {
         SimpleMiningCountLogin++;
       }
-      else if (args.Uri == new Uri("https://simplemining.net/"))
+      else if (args.Uri == SharedLibrary.GetSimpleMiningNetURIRigs())
+      {
+        SimpleMiningCountRigs++;
+      }
+      else if (args.Uri == SharedLibrary.GetSimpleMiningNetURIMain())
       {
         SimpleMiningCountMain++;
       }
@@ -2432,43 +2680,62 @@ namespace DashboardMining
 
     private void WvCaptcha_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
     {
-      if (args.Uri == SharedLibraryDashboardMining.GetSimpleMiningNetURILogin())
+      if (args.Uri == SharedLibrary.GetSimpleMiningNetURILogin())
       {
-        if (SimpleMiningCountLogin == 2 && SimpleMiningCountMain == 0) // Login page loaded
+        if (SimpleMiningCountLogin == 2 && SimpleMiningCountMain == 0 && SimpleMiningCountRigs == 0) // Login page is loaded before message about empty Captcha
         {
-          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0; SimpleMiningCountRigs = 0;
         }
-        if (SimpleMiningCountLogin == 3 && SimpleMiningCountMain == 0) // Login page is failed check login
+        if (SimpleMiningCountLogin == 3 && SimpleMiningCountMain == 0 && SimpleMiningCountRigs == 0) // Login page is failed check login or empty Captcha
         {
-          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0; SimpleMiningCountRigs = 0;
         }
       }
 
-      if (args.Uri == SharedLibraryDashboardMining.GetSimpleMiningNetURIMain())
+      if (args.Uri == SharedLibrary.GetSimpleMiningNetURIRigs())
       {
-        var LoginId = sender.Tag.ToString().Trim();
-        var cbMining = FindName("cbMining" + LoginId) as ComboBox;
-        var txtLogin = FindName("txtLogin" + LoginId) as TextBox;
-        var pswPassword = FindName("pswPassword" + LoginId) as PasswordBox;
-        var wvCaptcha = FindName("wvCaptcha" + LoginId) as WebView;
-
-        //WebView wvCaptcha = spWebView.FindName("wvCaptcha") as WebView;        
-
-        if (SimpleMiningCountLogin == 1 && SimpleMiningCountMain == 2) //Login page is OK
+        if (SimpleMiningCountLogin == 1 && SimpleMiningCountMain == 0 && SimpleMiningCountRigs == 2) // Login page is OK
         {
-          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0; SimpleMiningCountRigs = 0;
+
+          var LoginId = sender.Tag.ToString().Trim();
+          var cbMining = FindName("cbMining" + LoginId) as ComboBox;
+          var txtLogin = FindName("txtLogin" + LoginId) as TextBox;
+          var pswPassword = FindName("pswPassword" + LoginId) as PasswordBox;
+          var wvCaptcha = FindName("wvCaptcha" + LoginId) as WebView;
+
           wvCaptcha.Visibility = Visibility.Collapsed;
           SharedClass.SaveLogin(LoginId, (cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), "");
           ButtonCheckLogin();
-          //spWebView.Children.Remove(wvCaptcha);
-          //wvCaptcha = null;
-        }
-        if (SimpleMiningCountLogin == 0 && SimpleMiningCountMain == 2) //Block change page from Login page
-        {
-          SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
-          wvCaptcha.Navigate(SharedLibraryDashboardMining.GetSimpleMiningNetURILogin());
         }
       }
+
+      //OLD:
+      //if (args.Uri == SharedLibrary.GetSimpleMiningNetURIMain())
+      //{
+      //  var LoginId = sender.Tag.ToString().Trim();
+      //  var cbMining = FindName("cbMining" + LoginId) as ComboBox;
+      //  var txtLogin = FindName("txtLogin" + LoginId) as TextBox;
+      //  var pswPassword = FindName("pswPassword" + LoginId) as PasswordBox;
+      //  var wvCaptcha = FindName("wvCaptcha" + LoginId) as WebView;
+
+      //  //WebView wvCaptcha = spWebView.FindName("wvCaptcha") as WebView;        
+
+      //  if (SimpleMiningCountLogin == 1 && SimpleMiningCountMain == 2) //Login page is OK
+      //  {
+      //    SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+      //    wvCaptcha.Visibility = Visibility.Collapsed;
+      //    SharedClass.SaveLogin(LoginId, (cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), "");
+      //    ButtonCheckLogin();
+      //    //spWebView.Children.Remove(wvCaptcha);
+      //    //wvCaptcha = null;
+      //  }
+      //  if (SimpleMiningCountLogin == 0 && SimpleMiningCountMain == 2) //Block change page from Login page
+      //  {
+      //    SimpleMiningCountLogin = 0; SimpleMiningCountMain = 0;
+      //    wvCaptcha.Navigate(SharedLibrary.GetSimpleMiningNetURILogin());
+      //  }
+      //}
 
       //Debug.WriteLine(DateTime.Now.ToString() + " " + "WvCaptcha1_NavigationCompleted. " + args.Uri.ToString());
     }
@@ -2492,7 +2759,7 @@ namespace DashboardMining
 
       cmdLogout.IsEnabled = false;
 
-      var resultLogout = await SharedLibraryDashboardMining.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
+      var resultLogout = await SharedLibrary.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
       if (string.IsNullOrEmpty(resultLogout))
       {
         SharedClass.SaveLogout(LoginId);
@@ -2572,6 +2839,8 @@ namespace DashboardMining
 
     private void WriteError(string Error)
     {
+      string ErrorMessage;
+
       try
       {
         tbError.Text = tbError.Text.Insert(0, Environment.NewLine);
@@ -2580,11 +2849,11 @@ namespace DashboardMining
       catch (Exception ex)
       {
 #if DEBUG
-        tbError.Text = string.Format("{0} {1}", DateTime.Now, "Dashboard Mining cleared the list of errors due to a failure: " + ex.ToString());
+        ErrorMessage = string.Format("{0} {1}", DateTime.Now, "Dashboard Mining cleared the list of errors due to a failure: " + ex.ToString());
 #else
-        tbError.Text = string.Format("{0} {1}", DateTime.Now, "Dashboard Mining cleared the list of errors due to a failure");
+        ErrorMessage = string.Format("{0} {1}", DateTime.Now, "Dashboard Mining cleared the list of errors due to a failure");
 #endif
-
+        tbError.Text = ErrorMessage;
       }
     }
     #endregion Utilites
@@ -2956,7 +3225,7 @@ namespace DashboardMining
       var foundLoginMining = SharedClass.ListLoginMining.FirstOrDefault(item => item.Id == LoginId);
       if (foundLoginMining != null)
       {
-        var resultLogin = await SharedLibraryDashboardMining.LoginAsync((int)(cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim(), foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_cflb, foundLoginMining.SimpleMining_PHPSESSID);
+        var resultLogin = await SharedLibrary.LoginAsync((int)(cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim(), foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_cflb, foundLoginMining.SimpleMining_PHPSESSID);
         if (string.IsNullOrEmpty(resultLogin))
         {
           SharedClass.SaveLogin(LoginId, (cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim());
@@ -2981,7 +3250,7 @@ namespace DashboardMining
       var cmdLogout = (FindName("cmdLogout" + LoginId) as Button);
       cmdLogout.IsEnabled = false;
 
-      var resultLogout = await SharedLibraryDashboardMining.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
+      var resultLogout = await SharedLibrary.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
       if (string.IsNullOrEmpty(resultLogout))
       {
         SharedClass.SaveLogout(LoginId);
@@ -3024,7 +3293,7 @@ ListTask.Clear();
           {
             JObject resultJsonTask; string errorMessage;
 
-            var resultListRigs = await SharedLibraryDashboardMining.GetListRigsAsync(token, LoginMiningItem.SimpleMining_cfduid, LoginMiningItem.SimpleMining_PHPSESSID);
+            var resultListRigs = await SharedLibrary.GetListRigsAsync(token, LoginMiningItem.SimpleMining_cfduid, LoginMiningItem.SimpleMining_PHPSESSID);
 
             if (string.IsNullOrEmpty(resultListRigs.Item2) && !string.IsNullOrEmpty(resultListRigs.Item1))
             {
@@ -3178,7 +3447,7 @@ var txtCaptcha = FindName("txtCaptcha" + LoginId) as TextBox;
 
 cmdGetCaptcha.IsEnabled = false;
 
-var resultLogin = await SharedLibraryDashboardMining.GetCaptchaAsync((int)(cbMining.SelectedItem as MiningObject).Mining);
+var resultLogin = await SharedLibrary.GetCaptchaAsync((int)(cbMining.SelectedItem as MiningObject).Mining);
 if (string.IsNullOrEmpty(resultLogin.Item5))
 {
   SharedClass.SaveLoginCookie(LoginId, (cbMining.SelectedItem as MiningObject).Mining, resultLogin.Item2, resultLogin.Item3, resultLogin.Item4);
@@ -3215,7 +3484,7 @@ ButtonCheckLogin();
     {
       LoginId = i.ToString();
 
-      #region Get controls
+#region Get controls
       cbMining = FindName("cbMining" + LoginId) as ComboBox;
       txtLogin = FindName("txtLogin" + LoginId) as TextBox;
       pswPassword = FindName("pswPassword" + LoginId) as PasswordBox;
@@ -3226,7 +3495,7 @@ ButtonCheckLogin();
       lblErrorpswPassword = FindName("lblErrorpswPassword" + LoginId) as TextBlock;
       cmdLogin = FindName("cmdLogin" + LoginId) as Button;
       cmdLogout = FindName("cmdLogout" + LoginId) as Button;
-      #endregion Get controls
+#endregion Get controls
 
       if (SharedClass.ListLoginMining[i].IsLogged)
       {
@@ -3332,7 +3601,7 @@ cmdLogin.IsEnabled = false;
 var foundLoginMining = SharedClass.ListLoginMining.FirstOrDefault(item => item.Id == LoginId);
 if (foundLoginMining != null)
 {
-  var resultLogin = await SharedLibraryDashboardMining.LoginAsync((int)(cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim(), foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_cflb, foundLoginMining.SimpleMining_PHPSESSID);
+  var resultLogin = await SharedLibrary.LoginAsync((int)(cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim(), foundLoginMining.SimpleMining_cfduid, foundLoginMining.SimpleMining_cflb, foundLoginMining.SimpleMining_PHPSESSID);
   if (string.IsNullOrEmpty(resultLogin))
   {
     SharedClass.SaveLogin(LoginId, (cbMining.SelectedItem as MiningObject).Mining, txtLogin.Text.Trim(), pswPassword.Password.Trim(), txtCaptcha.Text.Trim());
@@ -3355,13 +3624,13 @@ private async Task Logout(string LoginId)
     {
       var foundLogin = SharedClass.ListLoginMining.First(item => item.Id == LoginId);
 
-      #region Set controls
+#region Set controls
       var cmdLogout = (FindName("cmdLogout" + LoginId) as Button);
-      #endregion Set controls
+#endregion Set controls
 
       cmdLogout.IsEnabled = false;
 
-      var resultLogout = await SharedLibraryDashboardMining.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
+      var resultLogout = await SharedLibrary.LogoutAsync((int)foundLogin.Mining, foundLogin.SimpleMining_cfduid, foundLogin.SimpleMining_cflb, foundLogin.SimpleMining_PHPSESSID);
       if (string.IsNullOrEmpty(resultLogout))
       {
         SharedClass.SaveLogout(LoginId);
@@ -3393,3 +3662,36 @@ private async Task Logout(string LoginId)
         await ShowDialog(ErrorMessage);
       }
     }*/
+
+/*
+    private async Task GetLicenseStateAsync()
+    {
+#if DEBUG
+      Debug.WriteLine("{0} GetLicenseStateAsync", DateTime.Now.ToString());
+      appLicense = await contextLicense.GetAppLicenseAsync();
+      Debug.WriteLine("{0} appLicense.IsActive={1}, appLicense.IsTrial={2}, appLicense.ExpirationDate={3}, appLicense.TrialTimeRemaining={4}", DateTime.Now.ToString(), appLicense.IsActive, appLicense.IsTrial, appLicense.ExpirationDate, appLicense.TrialTimeRemaining);
+      var IsActive = true;
+#else
+      appLicense = await contextLicense.GetAppLicenseAsync();
+      var IsActive = appLicense.IsActive;
+#endif
+
+      if (IsActive)
+      {
+        if (appLicense.IsTrial)
+        {
+          txtLicense.Text = $"This is the trial version. Expiration date: {appLicense.ExpirationDate}. You can buy 'Dashboard Mining' in the Microsoft Store";
+        }
+        else
+        {
+          txtLicense.Text = "";
+        }
+      }
+      else
+      {
+        StopCheckMining();
+        txtLicense.Text = $"The trial license is expired. Expiration date: {appLicense.ExpirationDate}. You can buy 'Dashboard Mining' in the Microsoft Store";
+        txtLicense.Foreground = new SolidColorBrush(Windows.UI.Colors.Red);
+      }
+    }
+ */
