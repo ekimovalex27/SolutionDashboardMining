@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Dashboard.Header" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_CheckManual.Label" xml:space="preserve">
+    <value>Manual check</value>
+  </data>
+  <data name="Dashboard_CheckStart.Label" xml:space="preserve">
+    <value>Run check</value>
+  </data>
+  <data name="Dashboard_CheckStop.Label" xml:space="preserve">
+    <value>Stop check</value>
+  </data>
+  <data name="Dashboard_Column_Address.Text" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="Dashboard_Column_Group.Text" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Dashboard_Column_Name.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Dashboard_Column_State.Text" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Dashboard_Column_VideocardFan.Text" xml:space="preserve">
+    <value>Video card Fan</value>
+  </data>
+  <data name="Dashboard_Column_VideocardSpeed.Text" xml:space="preserve">
+    <value>Video card Speed</value>
+  </data>
+  <data name="Dashboard_Column_VideocardTemp.Text" xml:space="preserve">
+    <value>Video card Temp</value>
+  </data>
+  <data name="Dashboard_Result.Text" xml:space="preserve">
+    <value>Condition check result</value>
+  </data>
+  <data name="Event.Header" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Event_Clear.Label" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="Event_Column_Action.Text" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Event_Column_Address.Text" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="Event_Column_Date.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Event_Column_Details.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Event_Column_During.Text" xml:space="preserve">
+    <value>During</value>
+  </data>
+  <data name="Event_Column_Group.Text" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Event_Column_Name.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Event_Column_Problem.Text" xml:space="preserve">
+    <value>Problem</value>
+  </data>
+  <data name="Event_Copy.Label" xml:space="preserve">
+    <value>Copy selected</value>
+  </data>
+  <data name="Event_Delete.Label" xml:space="preserve">
+    <value>Delete selected</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckLast.Text" xml:space="preserve">
+    <value>Last check</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckLastNotPerformed" xml:space="preserve">
+    <value>Not performed</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckRemain.Text" xml:space="preserve">
+    <value>Remain to check</value>
+  </data>
+  <data name="Main_BottomAppBar_CountFarm.Text" xml:space="preserve">
+    <value>Count Farms</value>
+  </data>
+  <data name="Main_BottomAppBar_Seconds.Text" xml:space="preserve">
+    <value>sec.</value>
+  </data>
+  <data name="Main_BottomAppBar_Uptime.Text" xml:space="preserve">
+    <value>Uptime Dashboard</value>
+  </data>
+  <data name="Settings.Header" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_cmdGetDefault.Content" xml:space="preserve">
+    <value>Set defaults</value>
+  </data>
+  <data name="Settings_Column_Action.Text" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Settings_Column_Condition.Text" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="Settings_Column_Duration.Text" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Settings_Column_Parameter.Text" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="Settings_FarmNotAvailable.Text" xml:space="preserve">
+    <value>Farm not available</value>
+  </data>
+  <data name="Settings_lblCheckDelay.Text" xml:space="preserve">
+    <value>Farms check interval</value>
+  </data>
+  <data name="Settings_lblCheckNotification.Text" xml:space="preserve">
+    <value>Notification recurrence interval about problem</value>
+  </data>
+  <data name="Settings_lblCheckRestart.Text" xml:space="preserve">
+    <value>Farm restart duration</value>
+  </data>
+  <data name="Settings_lblCountResetRestart.Text" xml:space="preserve">
+    <value>Reset the reboot counter after</value>
+  </data>
+  <data name="Settings_lblCountRestart.Text" xml:space="preserve">
+    <value>Number of restarts</value>
+  </data>
+  <data name="Time_Days" xml:space="preserve">
+    <value>d.</value>
+  </data>
+  <data name="Time_Days_XML.Text" xml:space="preserve">
+    <value>d.</value>
+  </data>
+  <data name="Time_Hours" xml:space="preserve">
+    <value>h.</value>
+  </data>
+  <data name="Time_Hours_XML.Text" xml:space="preserve">
+    <value>h.</value>
+  </data>
+  <data name="Time_Minutes" xml:space="preserve">
+    <value>min.</value>
+  </data>
+  <data name="Time_Minutes_XML.Text" xml:space="preserve">
+    <value>min.</value>
+  </data>
+  <data name="Time_Seconds" xml:space="preserve">
+    <value>sec.</value>
+  </data>
+  <data name="Time_Seconds_XML.Text" xml:space="preserve">
+    <value>sec.</value>
+  </data>
+  <data name="About.Header" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="About_Application.Text" xml:space="preserve">
+    <value>BRIEF</value>
+  </data>
+  <data name="About_ApplicationText.Text" xml:space="preserve">
+    <value>Dashboard Mining increases mining profitability by increasing the efficiency of mining farms and reducing downtime</value>
+  </data>
+  <data name="About_Author.Text" xml:space="preserve">
+    <value>AUTHORS</value>
+  </data>
+  <data name="About_Brief.Text" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="About_Brief01.Text" xml:space="preserve">
+    <value>Dashboard Mining shows the visual information about farms: names and groups, availability, IP-addresses, speed of video cards, temperature of video cards, parameters of the fan on the video card. You can sort the information by any column.</value>
+  </data>
+  <data name="About_Brief02.Text" xml:space="preserve">
+    <value>It is possible to use multiple accounts at the same time.</value>
+  </data>
+  <data name="About_Brief03.Text" xml:space="preserve">
+    <value>You can check the following conditions:</value>
+  </data>
+  <data name="About_Brief04.Text" xml:space="preserve">
+    <value>- Availability of farms</value>
+  </data>
+  <data name="About_Brief05.Text" xml:space="preserve">
+    <value>- Speed of video cards</value>
+  </data>
+  <data name="About_Brief06.Text" xml:space="preserve">
+    <value>- Temperature of video cards</value>
+  </data>
+  <data name="About_Brief07.Text" xml:space="preserve">
+    <value>- Fan parameters on the video card</value>
+  </data>
+  <data name="About_Brief08.Text" xml:space="preserve">
+    <value>When conditions occur, the following actions are performed:</value>
+  </data>
+  <data name="About_Brief09.Text" xml:space="preserve">
+    <value>- Event Logging</value>
+  </data>
+  <data name="About_Brief10.Text" xml:space="preserve">
+    <value>- Event notification</value>
+  </data>
+  <data name="About_Brief11.Text" xml:space="preserve">
+    <value>- Reboot The Farm</value>
+  </data>
+  <data name="About_Brief12.Text" xml:space="preserve">
+    <value>Event Notification:</value>
+  </data>
+  <data name="About_Brief13.Text" xml:space="preserve">
+    <value>- Application Log</value>
+  </data>
+  <data name="About_Brief14.Text" xml:space="preserve">
+    <value>- Telegram Bot</value>
+  </data>
+  <data name="About_Brief15.Text" xml:space="preserve">
+    <value>Application Log</value>
+  </data>
+  <data name="About_Brief16.Text" xml:space="preserve">
+    <value>- Application events are saved</value>
+  </data>
+  <data name="About_Brief17.Text" xml:space="preserve">
+    <value>- You can export events in CSV format for analysis</value>
+  </data>
+  <data name="About_Brief18.Text" xml:space="preserve">
+    <value>- Event analysis will find a 'bottleneck' and reduce farm downtime</value>
+  </data>
+  <data name="About_Brief19.Text" xml:space="preserve">
+    <value>Dashboard Mining applies to the site https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)</value>
+  </data>
+  <data name="About_Brief20.Text" xml:space="preserve">
+    <value>Dashboard Mining tested for miner 'Claymore-eth-v 10.0'</value>
+  </data>
+  <data name="About_Design.Text" xml:space="preserve">
+    <value>AUTHOR LOGO</value>
+  </data>
+  <data name="About_Resource.Text" xml:space="preserve">
+    <value>USED RESOURCES</value>
+  </data>
+  <data name="About_Support.Text" xml:space="preserve">
+    <value>SUPPORT</value>
+  </data>
+  <data name="Login.Header" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_cmdGetCaptcha0.Content" xml:space="preserve">
+    <value>Get Captcha</value>
+  </data>
+  <data name="Login_cmdGetCaptcha1.Content" xml:space="preserve">
+    <value>Get Captcha</value>
+  </data>
+  <data name="Login_cmdLogin0.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_cmdLogin1.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_cmdLogout0.Content" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Login_cmdLogout1.Content" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Login_lblErrorpswPassword0.Text" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
+  <data name="Login_lblErrorpswPassword1.Text" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
+  <data name="Login_lblErrortxtLogin0.Text" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
+  <data name="Login_lblErrortxtLogin1.Text" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
+  <data name="Login_pswPassword0.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_pswPassword1.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_txtCaptcha0.Header" xml:space="preserve">
+    <value>Captcha</value>
+  </data>
+  <data name="Login_txtCaptcha1.Header" xml:space="preserve">
+    <value>Captcha</value>
+  </data>
+  <data name="Login_txtLogin0.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Login_txtLogin1.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Notification.Header" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="Notification_cmdTelegramBotAddUser.Content" xml:space="preserve">
+    <value>Add user</value>
+  </data>
+  <data name="Notification_cmdTelegramBotDeleteUser.Content" xml:space="preserve">
+    <value>Delete user</value>
+  </data>
+  <data name="Notification_lblTelegramBotCount.Text" xml:space="preserve">
+    <value>Number of connected to bot</value>
+  </data>
+  <data name="Notification_lblTelegramBotDashboardName.Text" xml:space="preserve">
+    <value>Name of this Dashboard</value>
+  </data>
+  <data name="Notification_lblTelegramBotDashboardNameError.Text" xml:space="preserve">
+    <value>Think the name of this dashboard to indicate it in bot messages</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription11.Text" xml:space="preserve">
+    <value>Brief description</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription12.Text" xml:space="preserve">
+    <value>1. Dashboard Mining takes commands from the Telegram Bot and sends back the answers</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription13.Text" xml:space="preserve">
+    <value>2. You can manage the state of the farms using Dashboard Mining and the Telegram Bot</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription14.Text" xml:space="preserve">
+    <value>3. You need to create and configure your Telegram Bot (it will take a few minutes)</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription21.Text" xml:space="preserve">
+    <value>Description of Telegram Bot features</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription22.Text" xml:space="preserve">
+    <value>1. User authorization by phone number</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription23.Text" xml:space="preserve">
+    <value>2. Get users notifications about farm events</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription31.Text" xml:space="preserve">
+    <value>List of Telegram Bot commands</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription32.Text" xml:space="preserve">
+    <value>1. /start - Authorize users by phone number to receive notifications</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription41.Text" xml:space="preserve">
+    <value>Setting up the Telegram Bot</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription42.Text" xml:space="preserve">
+    <value>1. Create a Telegram Bot. Official link to create a Telegram Bot:</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription43.Text" xml:space="preserve">
+    <value>2. Add the bot command /start. Set the description of this command, comfortable for you</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription45.Text" xml:space="preserve">
+    <value>4. Find the token of the bot created and copy it to the Clipboard</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription46.Text" xml:space="preserve">
+    <value>5. In the Dashboard Mining on the 'Notification' tab:</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription47.Text" xml:space="preserve">
+    <value>- Enable 'Notify in Telegram Bot'</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription48.Text" xml:space="preserve">
+    <value>- Fill in 'Name of this Dashboard'</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription49.Text" xml:space="preserve">
+    <value>- Insert the bot token from the Clipboard in the 'Bot token' field</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription50.Text" xml:space="preserve">
+    <value>- Add the phone numbers of the users who will interact with Telegram Bot</value>
+  </data>
+  <data name="Notification_lblTelegramBotList.Text" xml:space="preserve">
+    <value>Bot users</value>
+  </data>
+  <data name="Notification_lblTelegramBotPhoneError.Text" xml:space="preserve">
+    <value>The user's phone must not be empty</value>
+  </data>
+  <data name="Notification_lblTelegramBotToken.Text" xml:space="preserve">
+    <value>Bot token</value>
+  </data>
+  <data name="Notification_lblTelegramBotTokenError.Text" xml:space="preserve">
+    <value>The bot token cannot be empty</value>
+  </data>
+  <data name="Notification_tsTelegramBot.Header" xml:space="preserve">
+    <value>Notify to Telegram Bot</value>
+  </data>
+  <data name="Notification_txtTelegramBotDashboardName.PlaceholderText" xml:space="preserve">
+    <value>Easy to read name of this Dashboard</value>
+  </data>
+  <data name="Settings_FanOnVideocardIsWeak.Text" xml:space="preserve">
+    <value>Fan speed on the video card is less than</value>
+  </data>
+  <data name="Settings_FanOnVideocardSpinsHard.Text" xml:space="preserve">
+    <value>Fan speed on the video card is greater than</value>
+  </data>
+  <data name="Settings_NotAllVideocardsWork.Text" xml:space="preserve">
+    <value>Not all video cards work</value>
+  </data>
+  <data name="Settings_VideocardSpeedSlowly.Text" xml:space="preserve">
+    <value>Video card speed is less than</value>
+  </data>
+  <data name="Settings_VideocardTemperatureHigh.Text" xml:space="preserve">
+    <value>Video card temperature is greater than</value>
+  </data>
+  <data name="Settings_VideocardTemperatureLow.Text" xml:space="preserve">
+    <value>Video card temperature is less than</value>
+  </data>
+  <data name="FarmAction_Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="FarmAction_RebootTheRig" xml:space="preserve">
+    <value>Reboot</value>
+  </data>
+  <data name="FarmAction_TakeNoAction" xml:space="preserve">
+    <value>Take no action</value>
+  </data>
+  <data name="Problem_FanOnVideocardIsWeak" xml:space="preserve">
+    <value>The fan on video card is weak</value>
+  </data>
+  <data name="Problem_FanOnVideocardSpinsHard" xml:space="preserve">
+    <value>The fan on the video card rotates quickly</value>
+  </data>
+  <data name="Problem_FarmNotAvailable" xml:space="preserve">
+    <value>The farm is not available</value>
+  </data>
+  <data name="Problem_NoFanDataOnVideocards" xml:space="preserve">
+    <value>No fan data on video card</value>
+  </data>
+  <data name="Problem_NotAllVideocardsWork" xml:space="preserve">
+    <value>Not all video cards work</value>
+  </data>
+  <data name="Problem_NoVideocardSpeedInfo" xml:space="preserve">
+    <value>No video card speed info</value>
+  </data>
+  <data name="Problem_NoVideocardTemperatureInformation" xml:space="preserve">
+    <value>No video card temperature Information</value>
+  </data>
+  <data name="Problem_VideocardSlow" xml:space="preserve">
+    <value>The video card is slow</value>
+  </data>
+  <data name="Problem_VideocardTemperatureHigh" xml:space="preserve">
+    <value>Temperature of video card is high</value>
+  </data>
+  <data name="Problem_VideocardTemperatureLow" xml:space="preserve">
+    <value>Temperature of video card is low</value>
+  </data>
+  <data name="Main_Rigs_Error_Get" xml:space="preserve">
+    <value>Failed to get list of farms for</value>
+  </data>
+  <data name="Main_Rigs_Error_Parse" xml:space="preserve">
+    <value>Failed to parse farm list for</value>
+  </data>
+  <data name="Main_Rigs_Error_Check" xml:space="preserve">
+    <value>Farm data validation failed</value>
+  </data>
+  <data name="Notification_Format1" xml:space="preserve">
+    <value>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, Action: {5}, IP: {6}, Details: {7}</value>
+  </data>
+  <data name="Notification_Format2" xml:space="preserve">
+    <value>Source: {0}, Details: {1}</value>
+  </data>
+  <data name="Notification_Format3" xml:space="preserve">
+    <value>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, Action: {5}, IP: {6}</value>
+  </data>
+  <data name="Event_LogClear1" xml:space="preserve">
+    <value>Are you sure you want to clear the events?</value>
+  </data>
+  <data name="Event_LogClear2" xml:space="preserve">
+    <value>Log events recovery is not possible. Clear log events?</value>
+  </data>
+  <data name="Event_LogCopy" xml:space="preserve">
+    <value>The selected rows are copied to the Clipboard</value>
+  </data>
+  <data name="Event_LogDelete" xml:space="preserve">
+    <value>Are you sure you want to delete the selected rows?</value>
+  </data>
+  <data name="Dialog_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Dialog_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Error_Login" xml:space="preserve">
+    <value>Error login</value>
+  </data>
+  <data name="Error_Logout" xml:space="preserve">
+    <value>Error logout</value>
+  </data>
+  <data name="TelegramBot_AddUser" xml:space="preserve">
+    <value>This phone number is already there</value>
+  </data>
+  <data name="TelegramBot_DeleteUser" xml:space="preserve">
+    <value>Are you sure to delete the selected phone number?</value>
+  </data>
+  <data name="Error_Captcha" xml:space="preserve">
+    <value>Error get captcha</value>
+  </data>
+  <data name="Error.Header" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="Error_Clear.Label" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="Error_LogClear" xml:space="preserve">
+    <value>Are you sure you want to clear the errors?</value>
+  </data>
+  <data name="About_Privacy.Text" xml:space="preserve">
+    <value>PRIVACY POLICY</value>
+  </data>
+  <data name="Notification_Format4" xml:space="preserve">
+    <value>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, IP: {5}, Details: {6}</value>
+  </data>
+  <data name="Notification_Format5" xml:space="preserve">
+    <value>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, IP: {5}</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription33.Text" xml:space="preserve">
+    <value>2. /check - Check current state of farms</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription24.Text" xml:space="preserve">
+    <value>3. Check current state of farms</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription44.Text" xml:space="preserve">
+    <value>3. Add the bot command /check. Set the description of this command, comfortable for you</value>
+  </data>
+</root>

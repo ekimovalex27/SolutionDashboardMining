@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Dashboard.Header" xml:space="preserve">
+    <value>Панель мониторинга</value>
+  </data>
+  <data name="Dashboard_CheckManual.Label" xml:space="preserve">
+    <value>Ручная проверка</value>
+  </data>
+  <data name="Dashboard_CheckStart.Label" xml:space="preserve">
+    <value>Запустить проверку</value>
+  </data>
+  <data name="Dashboard_CheckStop.Label" xml:space="preserve">
+    <value>Остановить проверку</value>
+  </data>
+  <data name="Dashboard_Column_Address.Text" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="Dashboard_Column_Group.Text" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="Dashboard_Column_Name.Text" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Dashboard_Column_State.Text" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Dashboard_Column_VideocardFan.Text" xml:space="preserve">
+    <value>Вентиляторы видеокарт</value>
+  </data>
+  <data name="Dashboard_Column_VideocardSpeed.Text" xml:space="preserve">
+    <value>Скорость видеокарт</value>
+  </data>
+  <data name="Dashboard_Column_VideocardTemp.Text" xml:space="preserve">
+    <value>Температура видеокарт</value>
+  </data>
+  <data name="Dashboard_Result.Text" xml:space="preserve">
+    <value>Результат проверки условий</value>
+  </data>
+  <data name="Event.Header" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Event_Clear.Label" xml:space="preserve">
+    <value>Очистить все</value>
+  </data>
+  <data name="Event_Column_Action.Text" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Event_Column_Address.Text" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="Event_Column_Date.Text" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Event_Column_Details.Text" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="Event_Column_During.Text" xml:space="preserve">
+    <value>В течении</value>
+  </data>
+  <data name="Event_Column_Group.Text" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="Event_Column_Name.Text" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Event_Column_Problem.Text" xml:space="preserve">
+    <value>Проблема</value>
+  </data>
+  <data name="Event_Copy.Label" xml:space="preserve">
+    <value>Копировать отмеченное</value>
+  </data>
+  <data name="Event_Delete.Label" xml:space="preserve">
+    <value>Удалить отмеченное</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckLast.Text" xml:space="preserve">
+    <value>Последняя проверка</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckLastNotPerformed" xml:space="preserve">
+    <value>Не проводилась</value>
+  </data>
+  <data name="Main_BottomAppBar_CheckRemain.Text" xml:space="preserve">
+    <value>Осталось до проверки</value>
+  </data>
+  <data name="Main_BottomAppBar_CountFarm.Text" xml:space="preserve">
+    <value>Количество ферм</value>
+  </data>
+  <data name="Main_BottomAppBar_Seconds.Text" xml:space="preserve">
+    <value>сек.</value>
+  </data>
+  <data name="Main_BottomAppBar_Uptime.Text" xml:space="preserve">
+    <value>Время работы Панели мониторинга</value>
+  </data>
+  <data name="Settings.Header" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settings_cmdGetDefault.Content" xml:space="preserve">
+    <value>Установить значения по-умолчанию</value>
+  </data>
+  <data name="Settings_Column_Action.Text" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Settings_Column_Condition.Text" xml:space="preserve">
+    <value>Условие</value>
+  </data>
+  <data name="Settings_Column_Duration.Text" xml:space="preserve">
+    <value>В течении</value>
+  </data>
+  <data name="Settings_Column_Parameter.Text" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="Settings_FarmNotAvailable.Text" xml:space="preserve">
+    <value>Ферма недоступна</value>
+  </data>
+  <data name="Settings_lblCheckDelay.Text" xml:space="preserve">
+    <value>Интервал проверки ферм</value>
+  </data>
+  <data name="Settings_lblCheckNotification.Text" xml:space="preserve">
+    <value>Интервал повторного уведомления о проблеме</value>
+  </data>
+  <data name="Settings_lblCheckRestart.Text" xml:space="preserve">
+    <value>Длительность перезагрузки фермы</value>
+  </data>
+  <data name="Settings_lblCountResetRestart.Text" xml:space="preserve">
+    <value>Сброс счётчика перезагрузок через</value>
+  </data>
+  <data name="Settings_lblCountRestart.Text" xml:space="preserve">
+    <value>Количество перезагрузок подряд</value>
+  </data>
+  <data name="Time_Days" xml:space="preserve">
+    <value>дн.</value>
+  </data>
+  <data name="Time_Days_XML.Text" xml:space="preserve">
+    <value>дн.</value>
+  </data>
+  <data name="Time_Hours" xml:space="preserve">
+    <value>час.</value>
+  </data>
+  <data name="Time_Hours_XML.Text" xml:space="preserve">
+    <value>час.</value>
+  </data>
+  <data name="Time_Minutes" xml:space="preserve">
+    <value>мин.</value>
+  </data>
+  <data name="Time_Minutes_XML.Text" xml:space="preserve">
+    <value>мин.</value>
+  </data>
+  <data name="Time_Seconds" xml:space="preserve">
+    <value>сек.</value>
+  </data>
+  <data name="Time_Seconds_XML.Text" xml:space="preserve">
+    <value>сек.</value>
+  </data>
+  <data name="About.Header" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="About_Application.Text" xml:space="preserve">
+    <value>КРАТКО</value>
+  </data>
+  <data name="About_ApplicationText.Text" xml:space="preserve">
+    <value>Dashboard Mining увеличивает доходность майнинга за счёт повышения эффективности работы майнинговых ферм и уменьшения времени их простоя</value>
+  </data>
+  <data name="About_Author.Text" xml:space="preserve">
+    <value>АВТОРЫ</value>
+  </data>
+  <data name="About_Brief.Text" xml:space="preserve">
+    <value>ВОЗМОЖНОСТИ</value>
+  </data>
+  <data name="About_Brief01.Text" xml:space="preserve">
+    <value>Dashboard Mining показывает наглядную информацию о фермах: имена и группы, доступность, IP-адреса, скорость видеокарт, температура видеокарт, параметры вентилятора на видеокарте. Можно сортировать информацию по любому столбцу.</value>
+  </data>
+  <data name="About_Brief02.Text" xml:space="preserve">
+    <value>Есть возможность использовать одновременно несколько учётных записей.</value>
+  </data>
+  <data name="About_Brief03.Text" xml:space="preserve">
+    <value>Вы можете проверять следующие условия:</value>
+  </data>
+  <data name="About_Brief04.Text" xml:space="preserve">
+    <value>- Доступность ферм</value>
+  </data>
+  <data name="About_Brief05.Text" xml:space="preserve">
+    <value>- Скорость видеокарт</value>
+  </data>
+  <data name="About_Brief06.Text" xml:space="preserve">
+    <value>- Температура видеокарт</value>
+  </data>
+  <data name="About_Brief07.Text" xml:space="preserve">
+    <value>- Параметры вентилятора на видеокарте</value>
+  </data>
+  <data name="About_Brief08.Text" xml:space="preserve">
+    <value>При срабатывании условий выполняются действия:</value>
+  </data>
+  <data name="About_Brief09.Text" xml:space="preserve">
+    <value>- Журналирование события</value>
+  </data>
+  <data name="About_Brief10.Text" xml:space="preserve">
+    <value>- Уведомление о событии</value>
+  </data>
+  <data name="About_Brief11.Text" xml:space="preserve">
+    <value>- Перезагрузка фермы</value>
+  </data>
+  <data name="About_Brief12.Text" xml:space="preserve">
+    <value>Уведомление о событии:</value>
+  </data>
+  <data name="About_Brief13.Text" xml:space="preserve">
+    <value>- Журнал приложения</value>
+  </data>
+  <data name="About_Brief14.Text" xml:space="preserve">
+    <value>- Бот Telegram</value>
+  </data>
+  <data name="About_Brief15.Text" xml:space="preserve">
+    <value>Журнал приложения:</value>
+  </data>
+  <data name="About_Brief16.Text" xml:space="preserve">
+    <value>- События приложения сохраняются</value>
+  </data>
+  <data name="About_Brief17.Text" xml:space="preserve">
+    <value>- Вы можете экспортировать события в формате csv для анализа</value>
+  </data>
+  <data name="About_Brief18.Text" xml:space="preserve">
+    <value>- Анализ событий позволит найти 'узкое место' и уменьшить время простоя фермы</value>
+  </data>
+  <data name="About_Brief19.Text" xml:space="preserve">
+    <value>Dashboard Mining применяется для сайта https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)</value>
+  </data>
+  <data name="About_Brief20.Text" xml:space="preserve">
+    <value>Dashboard Mining протестировано для майнера 'claymore-eth-v10.0'.</value>
+  </data>
+  <data name="About_Design.Text" xml:space="preserve">
+    <value>АВТОР ЛОГОТИПА</value>
+  </data>
+  <data name="About_Resource.Text" xml:space="preserve">
+    <value>ИСПОЛЬЗУЕМЫЕ РЕСУРСЫ</value>
+  </data>
+  <data name="About_Support.Text" xml:space="preserve">
+    <value>ПОДДЕРЖКА</value>
+  </data>
+  <data name="Login.Header" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Login_cmdGetCaptcha0.Content" xml:space="preserve">
+    <value>Капча</value>
+  </data>
+  <data name="Login_cmdGetCaptcha1.Content" xml:space="preserve">
+    <value>Капча</value>
+  </data>
+  <data name="Login_cmdLogin0.Content" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Login_cmdLogin1.Content" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Login_cmdLogout0.Content" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Login_cmdLogout1.Content" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Login_lblErrorpswPassword0.Text" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="Login_lblErrorpswPassword1.Text" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="Login_lblErrortxtLogin0.Text" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="Login_lblErrortxtLogin1.Text" xml:space="preserve">
+    <value>Поле не должно быть пустым</value>
+  </data>
+  <data name="Login_pswPassword0.Header" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Login_pswPassword1.Header" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Login_txtCaptcha0.Header" xml:space="preserve">
+    <value>Капча</value>
+  </data>
+  <data name="Login_txtCaptcha1.Header" xml:space="preserve">
+    <value>Капча</value>
+  </data>
+  <data name="Login_txtLogin0.Header" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="Login_txtLogin1.Header" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="Notification.Header" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="Notification_cmdTelegramBotAddUser.Content" xml:space="preserve">
+    <value>Добавить пользователя</value>
+  </data>
+  <data name="Notification_cmdTelegramBotDeleteUser.Content" xml:space="preserve">
+    <value>Удалить пользователя</value>
+  </data>
+  <data name="Notification_lblTelegramBotCount.Text" xml:space="preserve">
+    <value>Количество подключённых к боту</value>
+  </data>
+  <data name="Notification_lblTelegramBotDashboardName.Text" xml:space="preserve">
+    <value>Имя этой панели мониторинга</value>
+  </data>
+  <data name="Notification_lblTelegramBotDashboardNameError.Text" xml:space="preserve">
+    <value>Придумайте имя этой панели управления для указания его в сообщениях бота</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription11.Text" xml:space="preserve">
+    <value>Краткое описание</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription12.Text" xml:space="preserve">
+    <value>1. Dashboard Mining принимает команды от бота Telegram и отправляет назад ответы</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription13.Text" xml:space="preserve">
+    <value>2. Вы можете управлять состоянием ферм с помощью Dashboard Mining и бота Telegram</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription14.Text" xml:space="preserve">
+    <value>3. Вам необходимо создать и настроить своего бота Telegram (это займёт несколько минут)</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription21.Text" xml:space="preserve">
+    <value>Описание возможностей бота Telegram</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription22.Text" xml:space="preserve">
+    <value>1. Авторизация пользователей по номеру телефона</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription23.Text" xml:space="preserve">
+    <value>2. Получение пользователями уведомлений о событиях с фермами</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription31.Text" xml:space="preserve">
+    <value>Список команд бота Telegram</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription32.Text" xml:space="preserve">
+    <value>1. /start - Авторизация пользователей по номеру телефона для получения уведомлений</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription41.Text" xml:space="preserve">
+    <value>Настройка бота Telegram</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription42.Text" xml:space="preserve">
+    <value>1. Создайте бота Telegram. Официальная ссылка по созданию бота Telegram:</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription43.Text" xml:space="preserve">
+    <value>2. Добавьте боту команду /start. Установите описание этой команды, удобное для Вас</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription44.Text" xml:space="preserve">
+    <value>3. Добавьте боту команду /check. Установите описание этой команды, удобное для Вас</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription45.Text" xml:space="preserve">
+    <value>4. Найдите токен созданного бота и скопируйте его в буфер обмена</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription46.Text" xml:space="preserve">
+    <value>5. В Dashboard Mining на закладке 'Уведомление':</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription47.Text" xml:space="preserve">
+    <value>- Включите 'Уведомлять в бот Telegram'</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription48.Text" xml:space="preserve">
+    <value>- Заполните поле 'Имя этой панели мониторинга'</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription49.Text" xml:space="preserve">
+    <value>- Вставьте токен бота из буфера обмена в поле 'Токен бота'</value>
+  </data>
+  <data name="Notification_lblTelegramBotList.Text" xml:space="preserve">
+    <value>Пользователи бота</value>
+  </data>
+  <data name="Notification_lblTelegramBotPhoneError.Text" xml:space="preserve">
+    <value>Телефон пользователя не должен быть пустым</value>
+  </data>
+  <data name="Notification_lblTelegramBotToken.Text" xml:space="preserve">
+    <value>Токен бота</value>
+  </data>
+  <data name="Notification_lblTelegramBotTokenError.Text" xml:space="preserve">
+    <value>Токен бота не должен быть пустым</value>
+  </data>
+  <data name="Notification_tsTelegramBot.Header" xml:space="preserve">
+    <value>Уведомлять в бот Telegram</value>
+  </data>
+  <data name="Notification_txtTelegramBotDashboardName.PlaceholderText" xml:space="preserve">
+    <value>Понимаемое имя панели мониторинга</value>
+  </data>
+  <data name="Settings_FanOnVideocardIsWeak.Text" xml:space="preserve">
+    <value>Вентилятор на видеокарте вращается меньше, чем на</value>
+  </data>
+  <data name="Settings_FanOnVideocardSpinsHard.Text" xml:space="preserve">
+    <value>Вентилятор на видеокарте вращается больше, чем на</value>
+  </data>
+  <data name="Settings_NotAllVideocardsWork.Text" xml:space="preserve">
+    <value>Не все видеокарты работают</value>
+  </data>
+  <data name="Settings_VideocardSpeedSlowly.Text" xml:space="preserve">
+    <value>Скорость видеокарты меньше, чем</value>
+  </data>
+  <data name="Settings_VideocardTemperatureHigh.Text" xml:space="preserve">
+    <value>Температура видеокарты больше, чем</value>
+  </data>
+  <data name="Settings_VideocardTemperatureLow.Text" xml:space="preserve">
+    <value>Температура видеокарты меньше, чем</value>
+  </data>
+  <data name="FarmAction_Notification" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="FarmAction_RebootTheRig" xml:space="preserve">
+    <value>Перезагрузка</value>
+  </data>
+  <data name="FarmAction_TakeNoAction" xml:space="preserve">
+    <value>Нет действия</value>
+  </data>
+  <data name="Problem_FanOnVideocardIsWeak" xml:space="preserve">
+    <value>Вентилятор видеокарты крутится слабо</value>
+  </data>
+  <data name="Problem_FanOnVideocardSpinsHard" xml:space="preserve">
+    <value>Вентилятор видеокарты крутится сильно</value>
+  </data>
+  <data name="Problem_FarmNotAvailable" xml:space="preserve">
+    <value>Ферма недоступна</value>
+  </data>
+  <data name="Problem_NoFanDataOnVideocards" xml:space="preserve">
+    <value>Нет данных о вентиляторах на видеокартах</value>
+  </data>
+  <data name="Problem_NotAllVideocardsWork" xml:space="preserve">
+    <value>Работают не все видеокарты</value>
+  </data>
+  <data name="Problem_NoVideocardSpeedInfo" xml:space="preserve">
+    <value>Нет данных о скорости видеокарт</value>
+  </data>
+  <data name="Problem_NoVideocardTemperatureInformation" xml:space="preserve">
+    <value>Нет данных о температуре видеокарт</value>
+  </data>
+  <data name="Problem_VideocardSlow" xml:space="preserve">
+    <value>Видеокарта работает медленно</value>
+  </data>
+  <data name="Problem_VideocardTemperatureHigh" xml:space="preserve">
+    <value>Температура видеокарты высокая</value>
+  </data>
+  <data name="Problem_VideocardTemperatureLow" xml:space="preserve">
+    <value>Температура видеокарты низкая</value>
+  </data>
+  <data name="Main_Rigs_Error_Get" xml:space="preserve">
+    <value>Ошибка получения списка ферм для</value>
+  </data>
+  <data name="Main_Rigs_Error_Parse" xml:space="preserve">
+    <value>Ошибка разбора списка ферм для</value>
+  </data>
+  <data name="Main_Rigs_Error_Check" xml:space="preserve">
+    <value>Ошибка проверки параметров фермы</value>
+  </data>
+  <data name="Notification_Format1" xml:space="preserve">
+    <value>Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, Действие: {5}, IP: {6}, Подробно: {7}</value>
+  </data>
+  <data name="Notification_Format2" xml:space="preserve">
+    <value>Источник: {0}, Подробно: {1}</value>
+  </data>
+  <data name="Notification_Format3" xml:space="preserve">
+    <value>Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, Действие: {5}, IP: {6}</value>
+  </data>
+  <data name="Event_LogClear1" xml:space="preserve">
+    <value>Вы действительно хотите очистить журнал?</value>
+  </data>
+  <data name="Event_LogClear2" xml:space="preserve">
+    <value>Восстановление журнала невозможно. Очистить журнал?</value>
+  </data>
+  <data name="Event_LogCopy" xml:space="preserve">
+    <value>Выделенные строки скопированы в буфер обмена</value>
+  </data>
+  <data name="Event_LogDelete" xml:space="preserve">
+    <value>Вы действительно хотите удалить выделенные строки?</value>
+  </data>
+  <data name="Dialog_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Dialog_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="TelegramBot_AddUser" xml:space="preserve">
+    <value>Такой номер телефона уже есть в списке</value>
+  </data>
+  <data name="TelegramBot_DeleteUser" xml:space="preserve">
+    <value>Удалить выбранный телефонный номер?</value>
+  </data>
+  <data name="Error_Login" xml:space="preserve">
+    <value>Ошибка входа</value>
+  </data>
+  <data name="Error_Logout" xml:space="preserve">
+    <value>Ошибка выхода</value>
+  </data>
+  <data name="Error_Captcha" xml:space="preserve">
+    <value>Ошибка получения капчи</value>
+  </data>
+  <data name="Error.Header" xml:space="preserve">
+    <value>Ошибки</value>
+  </data>
+  <data name="Error_Clear.Label" xml:space="preserve">
+    <value>Очистить все</value>
+  </data>
+  <data name="Error_LogClear" xml:space="preserve">
+    <value>Вы действительно хотите очистить ошибки?</value>
+  </data>
+  <data name="About_Privacy.Text" xml:space="preserve">
+    <value>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</value>
+  </data>
+  <data name="Notification_Format4" xml:space="preserve">
+    <value>Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, IP: {5}, Подробно: {6}</value>
+  </data>
+  <data name="Notification_Format5" xml:space="preserve">
+    <value>Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, IP: {5}</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription50.Text" xml:space="preserve">
+    <value>- Добавьте телефонные номера пользователей, которые будут взаимодействовать с ботом</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription33.Text" xml:space="preserve">
+    <value>2. /check - Проверка текущего состояния ферм</value>
+  </data>
+  <data name="Notification_lblTelegramBotDescription24.Text" xml:space="preserve">
+    <value>3. Проверка текущего состояния ферм</value>
+  </data>
+</root>

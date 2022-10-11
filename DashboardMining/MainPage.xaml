@@ -1,0 +1,807 @@
+﻿<Page
+    x:Class="DashboardMining.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DashboardMining"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+  <Page.BottomAppBar>
+    <CommandBar>
+      <CommandBar.Content>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock x:Uid="Main_BottomAppBar_Uptime" Text="Время работы Панели управления" Margin="10,14,0,0"/>
+          <TextBlock x:Name="txtUptime" Text="99 y 12 m 31 d 24 h 60 m" Margin="5,14,0,0" FontWeight="SemiBold" Width="190"/>
+          <TextBlock x:Uid="Main_BottomAppBar_CountFarm" Text="Количество ферм" Margin="30,14,0,0"/>
+          <TextBlock x:Name="txtCountRigs" Text="999" Margin="5,14,0,0" FontWeight="SemiBold" Width="30" />
+
+          <TextBlock x:Uid="Main_BottomAppBar_CheckLast" Text="Последняя проверка" Margin="30,14,0,0"/>
+          <TextBlock x:Name="txtCheckTimeLast" Text="Не проводилась" Margin="5,14,0,0" FontWeight="SemiBold"/>
+          <TextBlock x:Name="lblCheckTimeRemain" x:Uid="Main_BottomAppBar_CheckRemain" Text="Осталось до проверки" Margin="10,14,0,0"/>
+          <TextBlock x:Name="txtCheckTimeRemain" Text="999" Width="25" TextAlignment="Center" Margin="5,14,0,0" FontWeight="SemiBold"/>
+          <TextBlock x:Name="lblCheckTimeSeconds" x:Uid="Main_BottomAppBar_Seconds" Text="сек." Margin="5,14,0,0"/>
+
+          <ProgressRing x:Name="CheckProgress" Grid.Column="1" Width="30" Height="30" IsActive="False" Margin="50,8,0,0"/>
+        </StackPanel>
+      </CommandBar.Content>
+    </CommandBar>
+  </Page.BottomAppBar>
+
+  <Grid>
+    <TextBlock x:Name="txtLicense" Text="Check license in Microsoft Store" Foreground="Orange" Margin="10,42,0,0" IsTextSelectionEnabled="True"/>
+
+    <Pivot>
+      <PivotItem x:Uid="Dashboard" Header="Панель управления">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto "/>
+            <RowDefinition Height="auto "/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <RelativePanel Grid.Row="0">
+            <!--<TextBlock x:Name="txtLicense" Text="Check license"  Foreground="Orange" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>-->
+            <CommandBar DefaultLabelPosition="Right" Background="Transparent" RelativePanel.AlignRightWithPanel="True">
+              <AppBarButton x:Name="cmdStart" x:Uid="Dashboard_CheckStart" Icon="Play" Label="Запустить проверку" Click="cmdStart_Click"/>
+              <AppBarButton x:Name="cmdStop" x:Uid="Dashboard_CheckStop" Icon="Stop" Label="Остановить проверку" Click="cmdStop_Click"/>
+              <AppBarButton x:Name="cmdGetRigs" x:Uid="Dashboard_CheckManual" Icon="Sync" Label="Ручная проверка" Click="cmdGetRigs_Click"/>
+            </CommandBar>
+          </RelativePanel>
+
+          <StackPanel Grid.Row="1">
+            <TextBox x:Name="txtError" Foreground="Red" Text="Текст ошибки" IsReadOnly="True" TextWrapping="Wrap" />
+          </StackPanel>
+
+          <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,-1" BorderThickness="1" BorderBrush="Black">
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed" HorizontalAlignment="Center">
+              <TextBlock x:Uid="Dashboard_Column_Group" Text="Группа" Margin="45,5,0,5" Tag="group"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="group"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_Name" Text="Имя" Margin="70,5,0,5" Tag="name"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="name"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_Address" Text="IP" Margin="95,5,0,5" Tag="ip"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="ip"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_State" Text="Состояние" Margin="25,5,0,5" Tag="state"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="state"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_VideocardSpeed" Text="Скорость видеокарт" Margin="105,5,0,5" Tag="speedAll"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="speedAll"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_VideocardTemp" Text="Температура видеокарт" Margin="115,5,0,5"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="tempsAll"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" PointerPressed="SortItem_PointerPressed">
+              <TextBlock x:Uid="Dashboard_Column_VideocardFan" Text="Вентиляторы видеокарт" Margin="20,5,0,5"/>
+              <TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="coolerAll"/>
+            </StackPanel>
+          </StackPanel>
+
+          <ScrollViewer Grid.Row="3" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" BorderThickness="1" BorderBrush="Black" >
+            <ListView x:Name="gvRigs" SelectionMode="Extended" ItemsSource="{x:Bind ListRig}">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding group}" Width="130" Margin="0,0,10,0" />
+                      <TextBlock Text="{Binding name}" Width="135" Margin="0,0,10,0" />
+                      <TextBlock Text="{Binding ip}" Width="95" Margin="0,0,10,0" />
+                      <TextBlock Text="{Binding state}" Width="85" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding speedAll}" Width="370" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding tempsAll}" Width="170" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding coolerAll}" />
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </ScrollViewer>
+
+          <StackPanel Grid.Row="4" Padding="0,10,0,0">
+            <TextBlock x:Uid="Dashboard_Result" Text="Результат проверки условий:"/>
+          </StackPanel>
+
+          <ScrollViewer Grid.Row="5" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" Margin="0,0,0,5" BorderThickness="1" BorderBrush="Black">
+            <ListView x:Name="lvSandbox" SelectionMode="Single" SelectionChanged="lvSandbox_SelectionChanged">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding group}" Width="130" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding name}" Width="135" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding FarmProblemShow}" Width="285" Margin="0,0,10,0"/>
+                      <TextBlock Text="{Binding duringShow}" Width="194" Margin="0,0,10,0" TextAlignment="Right" /> <!--145-->
+                      <TextBlock Text="{Binding details}" FontSize="14"/>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </ScrollViewer>
+
+        </Grid>
+      </PivotItem>
+
+      <PivotItem x:Uid="Event" Header="Журнал">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <StackPanel Grid.Row="0">
+            <CommandBar DefaultLabelPosition="Right" Background="Transparent">
+              <AppBarButton x:Name="appbarLogCopy" x:Uid="Event_Copy" Icon="Copy" Label="Скопировать отмеченное" Click="appbarLogCopy_Click"/>
+              <AppBarButton x:Name="appbarLogDelete" x:Uid="Event_Delete" Icon="Delete" Label="Удалить отмеченное" Click="appbarLogDelete_Click"/>
+              <AppBarButton x:Name="appbarLogClear" x:Uid="Event_Clear" Icon="Clear" Label="Очистить" Click="appbarLogClear_Click"/>
+            </CommandBar>
+          </StackPanel>
+
+          <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,-1" BorderThickness="1" BorderBrush="Black">
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Date" Text="Дата" Width="165" Tag="datetime" TextAlignment="Center"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="datetime"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Group" Text="Группа" Width="130" TextAlignment="Center" Tag="group"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="group"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Name" Text="Имя фермы" Width="135" TextAlignment="Center" Tag="name"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="name"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Problem" Text="Проблема" Width="290" TextAlignment="Center" Tag="title"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="title"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_During" Text="В течение" Width="150" TextAlignment="Center"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="during"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Action" Text="Действие" Width="160" TextAlignment="Center"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="action"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Address" Text="IP" Width="95" TextAlignment="Center" Tag="ip"/>
+              <!--<TextBlock Text="&#xE8CB;" Width="15" FontFamily="Segoe MDL2 Assets" Margin="5,8,0,5" Tag="ip"/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Details" Text="Детали" Margin="55,0,0,0" Tag=""/>
+            </StackPanel>
+
+          </StackPanel>
+
+          <ScrollViewer Grid.Row="2" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" Margin="0,0,0,5" BorderThickness="1" BorderBrush="Black" HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" >
+            <ListView x:Name="lvEvent" SelectionMode="Extended">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding datetime}" Width="165"/>
+                      <TextBlock Text="{Binding group}" Width="130"/>
+                      <TextBlock Text="{Binding name}" Width="135"/>
+                      <TextBlock Text="{Binding FarmProblemShow}" Width="290"/>
+                      <TextBlock  Text="{Binding duringShow}" Width="150" TextAlignment="Right"/>
+                      <TextBlock  Text="{Binding actionShow}" Width="160" TextAlignment="Center" />
+                      <TextBlock Text="{Binding ip}" Width="95" />
+                      <TextBlock Text="{Binding details}" Margin="0,0,10,0"/>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </ScrollViewer>
+        </Grid>
+      </PivotItem>
+
+      <PivotItem x:Uid="Error" Header="Ошибки">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <StackPanel Grid.Row="0">
+            <CommandBar DefaultLabelPosition="Right" Background="Transparent">
+              <AppBarButton x:Name="ErrorLogClear" x:Uid="Error_Clear" Icon="Clear" Label="Очистить" Click="ErrorLogClear_Click"/>
+            </CommandBar>
+          </StackPanel>
+
+          <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,-1" BorderThickness="1" BorderBrush="Black">
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Date" Text="Дата" Margin="65,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+              <TextBlock x:Uid="Event_Column_Details" Text="Детали" Margin="80,0,0,0" />
+            </StackPanel>
+
+          </StackPanel>
+
+          <ScrollViewer Grid.Row="2" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" Margin="0,0,0,5" BorderThickness="1" BorderBrush="Black" HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" >
+            <TextBlock x:Name="tbError" Margin="5" IsTextSelectionEnabled="True"></TextBlock>
+            <!--<ListView x:Name="lvEvent" SelectionMode="Extended">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding datetime}" Width="165"/>
+                      <TextBlock Text="{Binding group}" Width="130"/>
+                      <TextBlock Text="{Binding name}" Width="135"/>
+                      <TextBlock Text="{Binding FarmProblemShow}" Width="290"/>
+                      <TextBlock  Text="{Binding duringShow}" Width="150" TextAlignment="Right"/>
+                      <TextBlock  Text="{Binding actionShow}" Width="160" TextAlignment="Center" />
+                      <TextBlock Text="{Binding ip}" Width="95" />
+                      <TextBlock Text="{Binding details}" Margin="0,0,10,0"/>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>-->
+          </ScrollViewer>
+        </Grid>
+
+      </PivotItem>
+      
+      <PivotItem x:Uid="Settings" Header="Настройки">
+        <StackPanel Orientation="Vertical">
+          <Button x:Name="cmdGetDefault" x:Uid="Settings_cmdGetDefault" Content="Установить значения по-умолчанию" Click="cmdGetDefault_Click" HorizontalAlignment="Right"/>
+
+          <Grid Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="350" />
+              <ColumnDefinition Width="400"/>
+              <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+              <RowDefinition Height="35"/>
+              <RowDefinition Height="35"/>
+              <RowDefinition Height="35"/>
+              <RowDefinition Height="35"/>
+              <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Uid="Settings_lblCheckDelay" Grid.Column="0" Grid.Row="0" Text="Интервал проверки ферм" />
+            <Slider x:Name="sliderCheckDelay" Grid.Column="1" Grid.Row="0" Minimum="10" Maximum="300" ValueChanged="sliderCheckDelay_ValueChanged" />
+            <TextBlock x:Name="txtCheckDelay" Grid.Column="2" Grid.Row="0" Text="60" TextAlignment="Right"/>
+
+            <TextBlock x:Uid="Settings_lblCheckNotification" Grid.Column="0" Grid.Row="1" Text="Интервал повторного уведомления о проблеме" />
+            <Slider x:Name="sliderCheckNotification" Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="168" ValueChanged="sliderCheckNotification_ValueChanged" />
+            <TextBlock x:Name="txtCheckNotification" Grid.Column="2" Grid.Row="1" Text="24" TextAlignment="Right"/>
+
+            <TextBlock x:Uid="Settings_lblCheckRestart" Grid.Column="0" Grid.Row="2" Text="Длительность перезагрузки фермы" />
+            <Slider x:Name="sliderCheckRestart" Grid.Column="1" Grid.Row="2" Minimum="3" Maximum="30" ValueChanged="sliderCheckRestart_ValueChanged" />
+            <TextBlock x:Name="txtCheckRestart" Grid.Column="2" Grid.Row="2" Text="10" TextAlignment="Right"/>
+
+            <TextBlock x:Uid="Settings_lblCountRestart" Grid.Column="0" Grid.Row="3" Text="Количество перезагрузок подряд" />
+            <Slider x:Name="sliderCountRestart" Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="10" ValueChanged="sliderCountRestart_ValueChanged" />
+            <TextBlock x:Name="txtCountRestart" Grid.Column="2" Grid.Row="3" Text="3" TextAlignment="Right"/>
+
+            <TextBlock x:Uid="Settings_lblCountResetRestart" Grid.Column="0" Grid.Row="4" Text="Сброс счётчика перезагрузок через" />
+            <Slider x:Name="sliderCountResetRestart" Grid.Column="1" Grid.Row="4" Minimum="1" Maximum="48" ValueChanged="sliderCountResetRestart_ValueChanged" />
+            <TextBlock x:Name="txtCountResetRestart" Grid.Column="2" Grid.Row="4" Text="12" TextAlignment="Right"/>
+
+          </Grid>
+
+          <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="380" />
+              <ColumnDefinition Width="130"/>
+              <ColumnDefinition Width="150"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" >
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1" Y1="0"/>
+              <TextBlock x:Uid="Settings_Column_Condition" Text="Условие" Tag="Trigger" FontWeight="SemiBold"/>
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1" Y1="0"/>
+              <TextBlock x:Uid="Settings_Column_Parameter" Text="Параметр" Tag="Condition" FontWeight="SemiBold"/>
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="0">
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1" Y1="0"/>
+              <TextBlock x:Uid="Settings_Column_Duration" Text="В течении" Tag="Duration" FontWeight="SemiBold"/>
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="0">
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1" Y1="0"/>
+              <TextBlock x:Uid="Settings_Column_Action" Text="Действие" Tag="Action" FontWeight="SemiBold"/>
+              <Line Stroke="Black" Stretch="Fill" StrokeThickness="1" X1="0" X2="1"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+              <TextBlock x:Uid="Settings_FarmNotAvailable" Text="Ферма недоступна"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
+              <TextBlock Text="" Tag="OFF"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+              <TextBox x:Name="txtRigDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtRigDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+              <ComboBox x:Name="cbFarmNotAvailable" Width="190" Tag="FarmNotAvailable" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+              <TextBlock x:Uid="Settings_NotAllVideocardsWork" Text="Не все видеокарты работают" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+              <TextBlock Text="" Tag="NO"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
+              <TextBox x:Name="txtTheVideocardDoesNotWorkDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtTheVideocardDoesNotWorkDuring_TextChanged" IsEnabled="False"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+              <ComboBox x:Name="cbTheVideocardDoesNotWorkFor" Width="190" Tag="TheVideocardDoesNotWorkFor" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction" IsEnabled="False">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
+              <TextBlock x:Uid="Settings_VideocardSpeedSlowly" Text="Скорость видеокарты меньше, чем" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
+              <TextBox x:Name="txtSpeedSlow" Text="999" InputScope="Digits" TextAlignment="Center" Height="30" Width="40" VerticalAlignment="Top" TextChanged="txtSpeedSlow_TextChanged"/>
+              <TextBlock Text="Mh/s" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="3">
+              <TextBox x:Name="txtSpeedSlowDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtSpeedSlowDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="3">
+              <ComboBox x:Name="cbTheVideocardIsRunningSlowly" Width="190" Tag="TheVideocardIsRunningSlowly" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="4">
+              <TextBlock x:Uid="Settings_VideocardTemperatureLow" Text="Температура видеокарты меньше, чем"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
+              <TextBox x:Name="txtTempMin" Text="999" InputScope="Digits" TextAlignment="Center" VerticalAlignment="Top" TextChanged="txtTempMin_TextChanged"/>
+              <TextBlock Text="℃" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="4">
+              <TextBox x:Name="txtTempMinDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtTempMinDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="4">
+              <ComboBox x:Name="cbVideocardTemperatureLow" Width="190" Tag="VideocardTemperatureLow" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5">
+              <TextBlock x:Uid="Settings_VideocardTemperatureHigh" Text="Температура видеокарты больше, чем"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5">
+              <TextBox x:Name="txtTempMax" Text="999" InputScope="Digits" TextAlignment="Center" VerticalAlignment="Top" TextChanged="txtTempMax_TextChanged"/>
+              <TextBlock Text="℃" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="5">
+              <TextBox x:Name="txtTempMaxDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtTempMaxDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="5">
+              <ComboBox x:Name="cbVideocardTemperatureHigh" Width="190" Tag="VideocardTemperatureHigh" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="6">
+              <TextBlock x:Uid="Settings_FanOnVideocardIsWeak" Text="Вентилятор на видеокарте вращается меньше, чем на"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6">
+              <TextBox x:Name="txtFanMin" Text="999" InputScope="Digits" TextAlignment="Center" VerticalAlignment="Top" TextChanged="txtFanMin_TextChanged"/>
+              <TextBlock Text="%" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="6">
+              <TextBox x:Name="txtFanMinDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtFanMinDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="6">
+              <ComboBox x:Name="cbTheFanOnVideocardIsWeak" Width="190" Tag="TheFanOnVideocardIsWeak" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7">
+              <TextBlock x:Uid="Settings_FanOnVideocardSpinsHard" Text="Вентилятор на видеокарте вращается больше, чем на"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="7">
+              <TextBox x:Name="txtFanMax" Text="999" InputScope="Digits" TextAlignment="Center" VerticalAlignment="Top" TextChanged="txtFanMax_TextChanged"/>
+              <TextBlock Text="%" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="7">
+              <TextBox x:Name="txtFanMaxDuring" Text="999" InputScope="Digits" TextAlignment="Center" Width="65" VerticalAlignment="Top" MaxLength="3" TextChanged="txtFanMaxDuring_TextChanged"/>
+              <TextBlock x:Uid="Time_Minutes_XML" Text="мин." Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="7">
+              <ComboBox x:Name="cbTheFanOnVideocardSpinsHard" Width="190" Tag="TheFanOnVideocardSpinsHard" SelectionChanged="ComboBox_SelectionChanged" DisplayMemberPath="FarmAction">
+                <ComboBox.DataContext>
+                  <local:FarmActionObject/>
+                </ComboBox.DataContext>
+              </ComboBox>
+            </StackPanel>
+
+          </Grid>
+
+        </StackPanel>
+      </PivotItem>
+
+      <PivotItem x:Uid="Notification" Header="Уведомление">
+        <Grid Margin="0,20,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <StackPanel Orientation="Vertical" Grid.Row="0">
+            <ToggleSwitch x:Name="tsTelegramBot" x:Uid="Notification_tsTelegramBot" Header="Уведомлять в бот Telegram" Toggled="tsTelegramBot_Toggled"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+              <TextBlock x:Uid="Notification_lblTelegramBotDashboardName" Text="Имя этой панели мониторинга" Width="250"/>
+              <TextBox x:Name="txtTelegramBotDashboardName" x:Uid="Notification_txtTelegramBotDashboardName" Width="300" PlaceholderText="Понимаемое имя панели мониторинга" TextChanged="txtTelegramBotDashboardName_TextChanged" LostFocus="txtTelegramBotDashboardName_LostFocus"/>
+              <TextBlock x:Name="lblTelegramBotDashboardNameError" x:Uid="Notification_lblTelegramBotDashboardNameError" Text="Придумайте имя этой панели управления для указания его в сообщениях бота" Foreground="Red" Margin="5"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+              <TextBlock x:Uid="Notification_lblTelegramBotToken" Text="Токен бота" Width="250"/>
+              <TextBox x:Name="txtTelegramBotToken" Width="420" TextChanged="txtTelegramBotToken_TextChanged" LostFocus="txtTelegramBotToken_LostFocus" ToolTipService.ToolTip="Токен бота"/>
+              <TextBlock x:Name="lblTelegramBotTokenError" x:Uid="Notification_lblTelegramBotTokenError" Text="Токен бота не может быть пустым" Foreground="Red" Margin="5"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"  Margin="0,20,0,0">
+              <TextBlock x:Uid="Notification_lblTelegramBotList" Text="Пользователи бота" Width="250"/>
+
+              <ListView x:Name="lvTelegramBotList" BorderBrush="Black" BorderThickness="1" Width="310" Height="200">
+                <ListView.ItemTemplate>
+                  <DataTemplate>
+                    <Grid>
+                      <StackPanel Orientation="Horizontal">
+                        <!--<Ellipse Width="13" Height="13" Fill="Red" />-->
+                        <TextBlock Text="{Binding PhoneNumber}" Width="100" TextAlignment="Center" />
+                        <TextBlock Text="{Binding Fullname}" Width="150" />
+                        <TextBlock Text="{Binding Language}" Width="15" />
+                      </StackPanel>
+                    </Grid>
+                  </DataTemplate>
+                </ListView.ItemTemplate>
+              </ListView>
+
+              <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="15">
+                  <Button x:Name="cmdTelegramBotAddUser" x:Uid="Notification_cmdTelegramBotAddUser" Content="Добавить пользователя" Width="190" Click="cmdTelegramBotAddUser_Click"/>
+                  <TextBox x:Name="txtTelegramBotPhone" Width="145" PlaceholderText="01234567890" Margin="15,0,0,0" InputScope="TelephoneNumber" TextChanged="txtTelegramBotPhone_TextChanged" />
+                  <TextBlock x:Name="lblTelegramBotPhoneError" x:Uid="Notification_lblTelegramBotPhoneError" Text="Телефон пользователя не должен быть пустым" Foreground="Red" Margin="5"/>
+                </StackPanel>
+                <Button x:Name="cmdTelegramBotDeleteUser" x:Uid="Notification_cmdTelegramBotDeleteUser" Content="Удалить пользователя" Margin="15,10,0,0" Width="190" Click="cmdTelegramBotDeleteUser_Click"/>
+              </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+              <TextBlock x:Uid="Notification_lblTelegramBotCount" Text="Количество подключённых к боту" Width="250"/>
+              <TextBox x:Name="txtTelegramBotCount" Width="50" Text="0"  TextAlignment="Right" IsEnabled="False" ToolTipService.ToolTip="Количество подключённых к боту"/>
+            </StackPanel>
+
+          </StackPanel>
+
+          <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0">
+            <StackPanel Orientation="Vertical">
+              <StackPanel  Margin="0,0,0,0">
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription11" Text="Краткое описание" FontWeight="Bold"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription12" Text="1. Dashboard Mining принимает команды от бота Telegram и отправляет назад ответы" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription13" Text="2. Вы можете управлять состоянием ферм с помощью Dashboard Mining и бота Telegram" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription14" Text="3. Вам необходимо создать и настроить своего бота Telegram (это займёт несколько минут)" TextWrapping="Wrap" Margin="3"/>
+              </StackPanel>
+
+              <StackPanel Margin="0,15,0,0">
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription21" Text="Описание возможностей бота Telegram" FontWeight="Bold"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription22" Text="1. Авторизация пользователей по номеру телефона" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription23" Text="2. Получение уведомлений о событиях с фермами" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription24" Text="3. Проверка текущего состояния ферм" TextWrapping="Wrap" Margin="3"/>
+              </StackPanel>
+
+              <StackPanel Margin="0,15,0,0">
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription31" Text="Список команд бота Telegram" TextWrapping="Wrap" FontWeight="Bold"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription32" Text="1. /start - Авторизация пользователей по номеру телефона" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription33" Text="2. /check - Проверка текущего состояния ферм" TextWrapping="Wrap" Margin="3"/>
+              </StackPanel>
+
+              <StackPanel Margin="0,15,0,0">
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription41" Text="Настройка бота Telegram" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" Margin="3">
+                  <TextBlock x:Uid="Notification_lblTelegramBotDescription42" Text="1. Создайте бота Telegram. Официальная ссылка по созданию бота Telegram:" TextWrapping="Wrap" />
+                  <TextBlock Text="https://core.telegram.org/bots#6-botfather" TextWrapping="Wrap" IsTextSelectionEnabled="True" TextDecorations="Underline"/>
+                </StackPanel>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription43" Text="2. Добавьте боту команду /start. Установите описание этой команды, удобное для Вас" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription44" Text="3. Добавьте боту команду /check. Установите описание этой команды, удобное для Вас" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription45" Text="4. Найдите токен созданного бота и скопируйте его в буфер обмена" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription46" Text="5. В Dashboard Mining на закладке 'Уведомление':" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription47" Text="- Включите 'Уведомлять в бот Telegram'" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription48" Text="- Заполните поле 'Имя этой панели мониторинга'" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription49" Text="- Вставьте токен бота из буфера обмена в поле 'Токен бота'" TextWrapping="Wrap" Margin="3"/>
+                <TextBlock x:Uid="Notification_lblTelegramBotDescription50" Text="- Добавьте телефонные номера пользователей, которые будут взаимодействовать с ботом" TextWrapping="Wrap" Margin="3"/>
+              </StackPanel>
+
+            </StackPanel>
+          </ScrollViewer>
+        </Grid>
+      </PivotItem>
+
+      <PivotItem x:Uid="Login" Header="Вход">
+        <StackPanel Orientation="Vertical">
+
+          <Grid Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="180" />
+              <ColumnDefinition Width="240"/>
+              <ColumnDefinition Width="410"/>
+              <ColumnDefinition Width="100"/>
+              <ColumnDefinition Width="90"/>
+              <ColumnDefinition Width="auto"/>
+              <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+              <RowDefinition Height="60"/>
+              <RowDefinition Height="40"/>
+              <RowDefinition Height="60"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <ComboBox x:Name="cbMining0" Grid.Row="0" Grid.Column="0" Tag="0" Header="Mining"  Width="170" DisplayMemberPath="Title">
+              <ComboBox.DataContext>
+                <local:MiningObject/>
+              </ComboBox.DataContext>
+            </ComboBox>
+            <TextBox x:Name="txtLogin0" x:Uid="Login_txtLogin0" Grid.Row="0" Grid.Column="1" Tag="0" Header="Логин" Text="" Width="230" MaxLength="50" IsSpellCheckEnabled="False" HorizontalAlignment="Left"  TextChanged="txtLogin_TextChanged"/>
+            <PasswordBox x:Name="pswPassword0" x:Uid="Login_pswPassword0" Grid.Row="0" Grid.Column="2" Tag="0" Header="Пароль" Width="400" InputScope="Password" MaxLength="200" HorizontalAlignment="Left" PasswordChanged="pswPassword_PasswordChanged" />
+            
+            <!--<RelativePanel Grid.Row="0" Grid.Column="3">
+              <Button x:Name="cmdGetCaptcha0" x:Uid="Login_cmdGetCaptcha0" Content="Get Captcha" Tag="0" Width="100"  Click="cmdGetCaptcha_Click" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
+              <Image x:Name="imgCaptcha0" Width="100" Height="20" Stretch="None" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
+            </RelativePanel>
+            <TextBox x:Name="txtCaptcha0" x:Uid="Login_txtCaptcha0" Grid.Row="0" Grid.Column="4" Tag="0" Header="Captcha" Width="80" TextChanged="txtCaptcha_TextChanged" />-->
+            
+            <Button x:Name="cmdLogin0" x:Uid="Login_cmdLogin0" Grid.Row="0" Grid.Column="3" Content="Вход" Tag="0" Click="cmdLogin_Click" Width="100" Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+            <Button x:Name="cmdLogout0" x:Uid="Login_cmdLogout0" Grid.Row="0" Grid.Column="4" Content="Выход" Tag="0" Click="cmdLogout_Click" Width="100" Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="lblErrortxtLogin0" x:Uid="Login_lblErrortxtLogin0" Grid.Row="1" Grid.Column="1" Text="Поле не должно быть пустым" Foreground="Red"/>
+            <TextBlock x:Name="lblErrorpswPassword0" x:Uid="Login_lblErrorpswPassword0" Grid.Row="1" Grid.Column="2" Text="Поле не должно быть пустым" Foreground="Red"/>
+
+            <ComboBox x:Name="cbMining1" Grid.Row="2" Grid.Column="0" Tag="1" Header="Mining"  Width="170" DisplayMemberPath="Title">
+              <ComboBox.DataContext>
+                <local:MiningObject/>
+              </ComboBox.DataContext>
+            </ComboBox>
+            <TextBox x:Name="txtLogin1" x:Uid="Login_txtLogin1" Grid.Row="2" Grid.Column="1" Tag="1" Header="Логин" Text="" Width="230" MaxLength="50" IsSpellCheckEnabled="False" HorizontalAlignment="Left"  TextChanged="txtLogin_TextChanged"/>
+            <PasswordBox x:Name="pswPassword1" x:Uid="Login_pswPassword1" Grid.Row="2" Grid.Column="2" Tag="1" Header="Пароль" Width="400" InputScope="Password" MaxLength="200" HorizontalAlignment="Left" PasswordChanged="pswPassword_PasswordChanged" />
+            
+            <!--<RelativePanel Grid.Row="2" Grid.Column="3">
+              <Button Content="Get Captcha" x:Name="cmdGetCaptcha1" x:Uid="Login_cmdGetCaptcha1" Tag="1" Width="100"  Click="cmdGetCaptcha_Click" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
+              <Image x:Name="imgCaptcha1" Width="100" Height="20" Stretch="None" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
+            </RelativePanel>
+            <TextBox x:Name="txtCaptcha1" x:Uid="Login_txtCaptcha1" Grid.Row="2" Grid.Column="4" Tag="1" Header="Captcha" Width="80" TextChanged="txtCaptcha_TextChanged" />-->
+            
+            <Button x:Name="cmdLogin1" x:Uid="Login_cmdLogin1" Grid.Row="2" Grid.Column="3" Content="Вход" Tag="1" Click="cmdLogin_Click" Width="100" Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+            <Button x:Name="cmdLogout1" x:Uid="Login_cmdLogout1" Grid.Row="2" Grid.Column="4" Content="Выход" Tag="1" Click="cmdLogout_Click" Width="100" Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
+            <TextBlock x:Name="lblErrortxtLogin1" x:Uid="Login_lblErrortxtLogin1" Grid.Row="3" Grid.Column="1" Text="Поле не должно быть пустым" Foreground="Red"/>
+            <TextBlock x:Name="lblErrorpswPassword1" x:Uid="Login_lblErrorpswPassword1" Grid.Row="3" Grid.Column="2" Text="Поле не должно быть пустым" Foreground="Red"/>
+
+          </Grid>
+
+          <StackPanel x:Name="spWebView" Orientation="Horizontal" Margin="0,20,0,0" Background="Transparent" HorizontalAlignment="Center">
+            <WebView x:Name="wvCaptcha0" Tag="0" Width="520" Height="540" NavigationStarting="Wb_NavigationStarting" DOMContentLoaded="WvCaptcha_DOMContentLoaded" NavigationCompleted="WvCaptcha_NavigationCompleted" NewWindowRequested="WvCaptcha_NewWindowRequested"/>
+            <WebView x:Name="wvCaptcha1" Tag="1" Width="520" Height="540" NavigationStarting="Wb_NavigationStarting" DOMContentLoaded="WvCaptcha_DOMContentLoaded" NavigationCompleted="WvCaptcha_NavigationCompleted" NewWindowRequested="WvCaptcha_NewWindowRequested"/>
+            
+            <!--<Border BorderThickness="1" BorderBrush="Green" Background="Transparent">              
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Blue" Background="Transparent">              
+            </Border>-->              
+          </StackPanel>
+
+          <ListView x:Name="lvLogin" Visibility="Collapsed">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Login" Grid.Column="0" Width="70"/>
+                    <TextBox Text="{Binding Password}" Grid.Column="1" Width="150" />
+                    <TextBlock Text="Password" Grid.Column="2" Width="110" />
+                    <TextBox Text="{Binding Password}" Grid.Column="3" Width="150" />
+
+                    <Button Content="Login" x:Name="cmdLogin" Click="cmdLogin_Click" Width="100" Margin="50,0,0,0"/>
+                    <Button Content="Logout" x:Name="cmdLogout" Click="cmdLogout_Click" Width="100" Margin="25,0,0,0" />
+                    <Button Content="Delete" x:Name="cmdDeleteLogin" Width="100" Margin="25,0,0,0" />
+                  </StackPanel>
+                </Grid>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
+
+        </StackPanel>
+      </PivotItem>
+
+      <PivotItem x:Uid="About" Header="О программе">
+        <Grid  Margin="0,20,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+              <Canvas>
+                <Image Source="Images/Leika.png" Margin="600,170,0,0">
+                  <Image.RenderTransform>
+                    <CompositeTransform ScaleX="0.40" ScaleY="0.40"/>
+                  </Image.RenderTransform>
+                </Image>
+              </Canvas>
+
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Dashboard Mining" FontSize="30"/>
+              </StackPanel>
+
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Copyright © 2018. All rights reserved. Version"/>
+                <TextBlock x:Name="ApplicationVersion" Margin="5,0,0,0" Text="0.0.0.0"/>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Application" Text="КРАТКО" FontSize="20"/>
+                <TextBlock x:Uid="About_ApplicationText" Text="Dashboard Mining увеличивает доходность майнинга за счёт повышения эффективности работы майнинговых ферм и уменьшения времени их простоя" Margin="0,10,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Author" Text="АВТОРЫ" FontSize="20"/>
+                <TextBlock Text="Jet Software And Service Ltd." Margin="0,10,0,0"/>
+                <HyperlinkButton NavigateUri="http://www.jetsas.com">http://www.jetsas.com</HyperlinkButton>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Design" Text="ЛОГО" FontSize="20"/>
+                <StackPanel Orientation="Horizontal">
+                  <HyperlinkButton Content="Rybko Ludmila" NavigateUri="mailto:kolosok-l@mail.ru" VerticalAlignment="Top" Width="100"/>
+                  <Image  Source="Images/RybkoLudmila.png" Margin="20,10,0,0"  ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                </StackPanel>
+                <!--<StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                  <HyperlinkButton Content="Rybko Andrei" NavigateUri="mailto:rybko-a@mail.ru" VerticalAlignment="Top" Width="100"/>
+                  <Image Width="75" Height="75" Source="Images/RybkoLudmila.png" Margin="20,0,0,0" Stretch="Fill" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                </StackPanel>-->
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                <TextBlock x:Uid="About_Resource" Text="ИСПОЛЬЗУЕМЫЕ РЕСУРСЫ" FontSize="20"/>
+                <HyperlinkButton NavigateUri="https://simplemining.net" Content="https://simplemining.net"/>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Support" Text="ПОДДЕРЖКА" FontSize="20" />
+                <HyperlinkButton NavigateUri="mailto:support@jetsas.com">support@jetsas.com</HyperlinkButton>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Brief" Text="ВОЗМОЖНОСТИ" FontSize="20"/>
+                <TextBlock x:Uid="About_Brief01" Text="Dashboard Mining показывает наглядную информацию о фермах: имена и группы, доступность, IP-адреса, скорость видеокарт, температура видеокарт, параметры вентилятора на видеокарте. Можно сортировать информацию по любому столбцу." Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief02" Text="Есть возможность использовать одновременно несколько учётных записей." Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief03" Text="Вы можете проверять следующие условия:" Margin="0,15,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief04" Text="- Доступность ферм" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief05" Text="- Скорость видеокарт" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief06" Text="- Температура видеокарт" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief07" Text="- Параметры вентилятора на видеокарте" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief08" Text="При возникновении условий выполняются действия:" Margin="0,15,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief09" Text="- Журналирование события" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief10" Text="- Уведомление о событии" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief11" Text="- Перезагрузка фермы" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief12" Text="Уведомление о событии:" Margin="0,15,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief13" Text="- Журнал приложения" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief14" Text="- Бот Telegram" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief15" Text="Журнал приложения:" Margin="0,15,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief16" Text="- События приложения сохраняются" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief17" Text="- Вы можете экспортировать события в формате csv для анализа" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief18" Text="- Анализ событий позволит найти 'узкое место' и уменьшить время простоя фермы" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief19" Text="Dashboard Mining применяется для сайта https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)" Margin="0,15,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="About_Brief20" Text="Dashboard Mining протестировано для майнера 'claymore-eth-v10.0'." Margin="0,10,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+
+              <StackPanel Orientation="Vertical" Margin="0,25,0,0">
+                <TextBlock x:Uid="About_Privacy" Text="ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ" FontSize="20"/>
+                <HyperlinkButton NavigateUri="http://www.jetsas.com/dashboardmining/privacy" Content="http://www.jetsas.com/dashboardmining/privacy"/>
+              </StackPanel>
+
+            </StackPanel>
+          </ScrollViewer>
+        </Grid>
+      </PivotItem>
+
+    </Pivot>
+  </Grid>
+
+</Page>
+

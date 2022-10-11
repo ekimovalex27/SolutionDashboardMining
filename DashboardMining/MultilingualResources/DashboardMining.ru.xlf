@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="ru" original="DASHBOARDMINING/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="DASHBOARDMINING/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="Dashboard.Header" translate="yes" xml:space="preserve">
+          <source>Dashboard</source>
+          <target state="final">Панель мониторинга</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_CheckManual.Label" translate="yes" xml:space="preserve">
+          <source>Manual check</source>
+          <target state="final">Ручная проверка</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_CheckStart.Label" translate="yes" xml:space="preserve">
+          <source>Run check</source>
+          <target state="final">Запустить проверку</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_CheckStop.Label" translate="yes" xml:space="preserve">
+          <source>Stop check</source>
+          <target state="final">Остановить проверку</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_Address.Text" translate="yes" xml:space="preserve">
+          <source>IP</source>
+          <target state="translated">IP</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_Group.Text" translate="yes" xml:space="preserve">
+          <source>Group</source>
+          <target state="final" state-qualifier="tm-suggestion">Группа</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_Name.Text" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target state="final" state-qualifier="tm-suggestion">Имя</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_State.Text" translate="yes" xml:space="preserve">
+          <source>State</source>
+          <target state="final" state-qualifier="tm-suggestion">Состояние</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_VideocardFan.Text" translate="yes" xml:space="preserve">
+          <source>Video card Fan</source>
+          <target state="final">Вентиляторы видеокарт</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_VideocardSpeed.Text" translate="yes" xml:space="preserve">
+          <source>Video card Speed</source>
+          <target state="final">Скорость видеокарт</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Column_VideocardTemp.Text" translate="yes" xml:space="preserve">
+          <source>Video card Temp</source>
+          <target state="final">Температура видеокарт</target>
+        </trans-unit>
+        <trans-unit id="Dashboard_Result.Text" translate="yes" xml:space="preserve">
+          <source>Condition check result</source>
+          <target state="translated">Результат проверки условий</target>
+        </trans-unit>
+        <trans-unit id="Event.Header" translate="yes" xml:space="preserve">
+          <source>Events</source>
+          <target state="translated">Журнал</target>
+        </trans-unit>
+        <trans-unit id="Event_Clear.Label" translate="yes" xml:space="preserve">
+          <source>Clear all</source>
+          <target state="final" state-qualifier="tm-suggestion">Очистить все</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Action.Text" translate="yes" xml:space="preserve">
+          <source>Action</source>
+          <target state="final" state-qualifier="tm-suggestion">Действие</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Address.Text" translate="yes" xml:space="preserve">
+          <source>IP</source>
+          <target state="final">IP</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Date.Text" translate="yes" xml:space="preserve">
+          <source>Date</source>
+          <target state="final" state-qualifier="tm-suggestion">Дата</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Details.Text" translate="yes" xml:space="preserve">
+          <source>Details</source>
+          <target state="translated">Детали</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_During.Text" translate="yes" xml:space="preserve">
+          <source>During</source>
+          <target state="translated">В течении</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Group.Text" translate="yes" xml:space="preserve">
+          <source>Group</source>
+          <target state="final" state-qualifier="tm-suggestion">Группа</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Name.Text" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target state="final" state-qualifier="tm-suggestion">Имя</target>
+        </trans-unit>
+        <trans-unit id="Event_Column_Problem.Text" translate="yes" xml:space="preserve">
+          <source>Problem</source>
+          <target state="translated">Проблема</target>
+        </trans-unit>
+        <trans-unit id="Event_Copy.Label" translate="yes" xml:space="preserve">
+          <source>Copy selected</source>
+          <target state="translated">Копировать отмеченное</target>
+        </trans-unit>
+        <trans-unit id="Event_Delete.Label" translate="yes" xml:space="preserve">
+          <source>Delete selected</source>
+          <target state="translated">Удалить отмеченное</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_CheckLast.Text" translate="yes" xml:space="preserve">
+          <source>Last check</source>
+          <target state="translated">Последняя проверка</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_CheckLastNotPerformed" translate="yes" xml:space="preserve">
+          <source>Not performed</source>
+          <target state="translated">Не проводилась</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_CheckRemain.Text" translate="yes" xml:space="preserve">
+          <source>Remain to check</source>
+          <target state="translated">Осталось до проверки</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_CountFarm.Text" translate="yes" xml:space="preserve">
+          <source>Count Farms</source>
+          <target state="translated">Количество ферм</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_Seconds.Text" translate="yes" xml:space="preserve">
+          <source>sec.</source>
+          <target state="translated">сек.</target>
+        </trans-unit>
+        <trans-unit id="Main_BottomAppBar_Uptime.Text" translate="yes" xml:space="preserve">
+          <source>Uptime Dashboard</source>
+          <target state="translated">Время работы Панели мониторинга</target>
+        </trans-unit>
+        <trans-unit id="Settings.Header" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Настройки</target>
+        </trans-unit>
+        <trans-unit id="Settings_cmdGetDefault.Content" translate="yes" xml:space="preserve">
+          <source>Set defaults</source>
+          <target state="translated">Установить значения по-умолчанию</target>
+        </trans-unit>
+        <trans-unit id="Settings_Column_Action.Text" translate="yes" xml:space="preserve">
+          <source>Action</source>
+          <target state="final" state-qualifier="tm-suggestion">Действие</target>
+        </trans-unit>
+        <trans-unit id="Settings_Column_Condition.Text" translate="yes" xml:space="preserve">
+          <source>Condition</source>
+          <target state="final" state-qualifier="tm-suggestion">Условие</target>
+        </trans-unit>
+        <trans-unit id="Settings_Column_Duration.Text" translate="yes" xml:space="preserve">
+          <source>Duration</source>
+          <target state="translated">В течении</target>
+        </trans-unit>
+        <trans-unit id="Settings_Column_Parameter.Text" translate="yes" xml:space="preserve">
+          <source>Parameter</source>
+          <target state="final" state-qualifier="tm-suggestion">Параметр</target>
+        </trans-unit>
+        <trans-unit id="Settings_FarmNotAvailable.Text" translate="yes" xml:space="preserve">
+          <source>Farm not available</source>
+          <target state="translated">Ферма недоступна</target>
+        </trans-unit>
+        <trans-unit id="Settings_lblCheckDelay.Text" translate="yes" xml:space="preserve">
+          <source>Farms check interval</source>
+          <target state="translated">Интервал проверки ферм</target>
+        </trans-unit>
+        <trans-unit id="Settings_lblCheckNotification.Text" translate="yes" xml:space="preserve">
+          <source>Notification recurrence interval about problem</source>
+          <target state="translated">Интервал повторного уведомления о проблеме</target>
+        </trans-unit>
+        <trans-unit id="Settings_lblCheckRestart.Text" translate="yes" xml:space="preserve">
+          <source>Farm restart duration</source>
+          <target state="translated">Длительность перезагрузки фермы</target>
+        </trans-unit>
+        <trans-unit id="Settings_lblCountResetRestart.Text" translate="yes" xml:space="preserve">
+          <source>Reset the reboot counter after</source>
+          <target state="translated">Сброс счётчика перезагрузок через</target>
+        </trans-unit>
+        <trans-unit id="Settings_lblCountRestart.Text" translate="yes" xml:space="preserve">
+          <source>Number of restarts</source>
+          <target state="translated">Количество перезагрузок подряд</target>
+        </trans-unit>
+        <trans-unit id="Time_Days" translate="yes" xml:space="preserve">
+          <source>d.</source>
+          <target state="translated">дн.</target>
+        </trans-unit>
+        <trans-unit id="Time_Days_XML.Text" translate="yes" xml:space="preserve">
+          <source>d.</source>
+          <target state="translated">дн.</target>
+        </trans-unit>
+        <trans-unit id="Time_Hours" translate="yes" xml:space="preserve">
+          <source>h.</source>
+          <target state="translated">час.</target>
+        </trans-unit>
+        <trans-unit id="Time_Hours_XML.Text" translate="yes" xml:space="preserve">
+          <source>h.</source>
+          <target state="translated">час.</target>
+        </trans-unit>
+        <trans-unit id="Time_Minutes" translate="yes" xml:space="preserve">
+          <source>min.</source>
+          <target state="translated">мин.</target>
+        </trans-unit>
+        <trans-unit id="Time_Minutes_XML.Text" translate="yes" xml:space="preserve">
+          <source>min.</source>
+          <target state="translated">мин.</target>
+        </trans-unit>
+        <trans-unit id="Time_Seconds" translate="yes" xml:space="preserve">
+          <source>sec.</source>
+          <target state="translated">сек.</target>
+        </trans-unit>
+        <trans-unit id="Time_Seconds_XML.Text" translate="yes" xml:space="preserve">
+          <source>sec.</source>
+          <target state="translated">сек.</target>
+        </trans-unit>
+        <trans-unit id="About.Header" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated">О программе</target>
+        </trans-unit>
+        <trans-unit id="About_Application.Text" translate="yes" xml:space="preserve">
+          <source>BRIEF</source>
+          <target state="translated">КРАТКО</target>
+        </trans-unit>
+        <trans-unit id="About_ApplicationText.Text" translate="yes" xml:space="preserve">
+          <source>Dashboard Mining increases mining profitability by increasing the efficiency of mining farms and reducing downtime</source>
+          <target state="translated">Dashboard Mining увеличивает доходность майнинга за счёт повышения эффективности работы майнинговых ферм и уменьшения времени их простоя</target>
+        </trans-unit>
+        <trans-unit id="About_Author.Text" translate="yes" xml:space="preserve">
+          <source>AUTHORS</source>
+          <target state="translated">АВТОРЫ</target>
+        </trans-unit>
+        <trans-unit id="About_Brief.Text" translate="yes" xml:space="preserve">
+          <source>DESCRIPTION</source>
+          <target state="translated">ВОЗМОЖНОСТИ</target>
+        </trans-unit>
+        <trans-unit id="About_Brief01.Text" translate="yes" xml:space="preserve">
+          <source>Dashboard Mining shows the visual information about farms: names and groups, availability, IP-addresses, speed of video cards, temperature of video cards, parameters of the fan on the video card. You can sort the information by any column.</source>
+          <target state="translated">Dashboard Mining показывает наглядную информацию о фермах: имена и группы, доступность, IP-адреса, скорость видеокарт, температура видеокарт, параметры вентилятора на видеокарте. Можно сортировать информацию по любому столбцу.</target>
+        </trans-unit>
+        <trans-unit id="About_Brief02.Text" translate="yes" xml:space="preserve">
+          <source>It is possible to use multiple accounts at the same time.</source>
+          <target state="translated">Есть возможность использовать одновременно несколько учётных записей.</target>
+        </trans-unit>
+        <trans-unit id="About_Brief03.Text" translate="yes" xml:space="preserve">
+          <source>You can check the following conditions:</source>
+          <target state="translated">Вы можете проверять следующие условия:</target>
+        </trans-unit>
+        <trans-unit id="About_Brief04.Text" translate="yes" xml:space="preserve">
+          <source>- Availability of farms</source>
+          <target state="translated">- Доступность ферм</target>
+        </trans-unit>
+        <trans-unit id="About_Brief05.Text" translate="yes" xml:space="preserve">
+          <source>- Speed of video cards</source>
+          <target state="translated">- Скорость видеокарт</target>
+        </trans-unit>
+        <trans-unit id="About_Brief06.Text" translate="yes" xml:space="preserve">
+          <source>- Temperature of video cards</source>
+          <target state="translated">- Температура видеокарт</target>
+        </trans-unit>
+        <trans-unit id="About_Brief07.Text" translate="yes" xml:space="preserve">
+          <source>- Fan parameters on the video card</source>
+          <target state="translated">- Параметры вентилятора на видеокарте</target>
+        </trans-unit>
+        <trans-unit id="About_Brief08.Text" translate="yes" xml:space="preserve">
+          <source>When conditions occur, the following actions are performed:</source>
+          <target state="translated">При срабатывании условий выполняются действия:</target>
+        </trans-unit>
+        <trans-unit id="About_Brief09.Text" translate="yes" xml:space="preserve">
+          <source>- Event Logging</source>
+          <target state="translated">- Журналирование события</target>
+        </trans-unit>
+        <trans-unit id="About_Brief10.Text" translate="yes" xml:space="preserve">
+          <source>- Event notification</source>
+          <target state="translated">- Уведомление о событии</target>
+        </trans-unit>
+        <trans-unit id="About_Brief11.Text" translate="yes" xml:space="preserve">
+          <source>- Reboot The Farm</source>
+          <target state="translated">- Перезагрузка фермы</target>
+        </trans-unit>
+        <trans-unit id="About_Brief12.Text" translate="yes" xml:space="preserve">
+          <source>Event Notification:</source>
+          <target state="translated">Уведомление о событии:</target>
+        </trans-unit>
+        <trans-unit id="About_Brief13.Text" translate="yes" xml:space="preserve">
+          <source>- Application Log</source>
+          <target state="translated">- Журнал приложения</target>
+        </trans-unit>
+        <trans-unit id="About_Brief14.Text" translate="yes" xml:space="preserve">
+          <source>- Telegram Bot</source>
+          <target state="translated">- Бот Telegram</target>
+        </trans-unit>
+        <trans-unit id="About_Brief15.Text" translate="yes" xml:space="preserve">
+          <source>Application Log</source>
+          <target state="translated">Журнал приложения:</target>
+        </trans-unit>
+        <trans-unit id="About_Brief16.Text" translate="yes" xml:space="preserve">
+          <source>- Application events are saved</source>
+          <target state="translated">- События приложения сохраняются</target>
+        </trans-unit>
+        <trans-unit id="About_Brief17.Text" translate="yes" xml:space="preserve">
+          <source>- You can export events in CSV format for analysis</source>
+          <target state="translated">- Вы можете экспортировать события в формате csv для анализа</target>
+        </trans-unit>
+        <trans-unit id="About_Brief18.Text" translate="yes" xml:space="preserve">
+          <source>- Event analysis will find a 'bottleneck' and reduce farm downtime</source>
+          <target state="translated">- Анализ событий позволит найти 'узкое место' и уменьшить время простоя фермы</target>
+        </trans-unit>
+        <trans-unit id="About_Brief19.Text" translate="yes" xml:space="preserve">
+          <source>Dashboard Mining applies to the site https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)</source>
+          <target state="translated">Dashboard Mining применяется для сайта https://simplemining.net (Copyright © 2018 SimpleMining.net All rights reserved.)</target>
+        </trans-unit>
+        <trans-unit id="About_Brief20.Text" translate="yes" xml:space="preserve">
+          <source>Dashboard Mining tested for miner 'Claymore-eth-v 10.0'</source>
+          <target state="translated">Dashboard Mining протестировано для майнера 'claymore-eth-v10.0'.</target>
+        </trans-unit>
+        <trans-unit id="About_Design.Text" translate="yes" xml:space="preserve">
+          <source>AUTHOR LOGO</source>
+          <target state="translated">АВТОР ЛОГОТИПА</target>
+        </trans-unit>
+        <trans-unit id="About_Resource.Text" translate="yes" xml:space="preserve">
+          <source>USED RESOURCES</source>
+          <target state="translated">ИСПОЛЬЗУЕМЫЕ РЕСУРСЫ</target>
+        </trans-unit>
+        <trans-unit id="About_Support.Text" translate="yes" xml:space="preserve">
+          <source>SUPPORT</source>
+          <target state="final" state-qualifier="tm-suggestion">ПОДДЕРЖКА</target>
+        </trans-unit>
+        <trans-unit id="Login.Header" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="final" state-qualifier="tm-suggestion">Вход</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdGetCaptcha0.Content" translate="yes" xml:space="preserve">
+          <source>Get Captcha</source>
+          <target state="translated">Капча</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdGetCaptcha1.Content" translate="yes" xml:space="preserve">
+          <source>Get Captcha</source>
+          <target state="translated">Капча</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdLogin0.Content" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="translated">Войти</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdLogin1.Content" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="translated">Войти</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdLogout0.Content" translate="yes" xml:space="preserve">
+          <source>Logout</source>
+          <target state="final" state-qualifier="tm-suggestion">Выйти</target>
+        </trans-unit>
+        <trans-unit id="Login_cmdLogout1.Content" translate="yes" xml:space="preserve">
+          <source>Logout</source>
+          <target state="final" state-qualifier="tm-suggestion">Выйти</target>
+        </trans-unit>
+        <trans-unit id="Login_lblErrorpswPassword0.Text" translate="yes" xml:space="preserve">
+          <source>Field must not be empty</source>
+          <target state="final" state-qualifier="tm-suggestion">Поле не должно быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Login_lblErrorpswPassword1.Text" translate="yes" xml:space="preserve">
+          <source>Field must not be empty</source>
+          <target state="final" state-qualifier="tm-suggestion">Поле не должно быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Login_lblErrortxtLogin0.Text" translate="yes" xml:space="preserve">
+          <source>Field must not be empty</source>
+          <target state="final" state-qualifier="tm-suggestion">Поле не должно быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Login_lblErrortxtLogin1.Text" translate="yes" xml:space="preserve">
+          <source>Field must not be empty</source>
+          <target state="final" state-qualifier="tm-suggestion">Поле не должно быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Login_pswPassword0.Header" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <target state="final" state-qualifier="tm-suggestion">Пароль</target>
+        </trans-unit>
+        <trans-unit id="Login_pswPassword1.Header" translate="yes" xml:space="preserve">
+          <source>Password</source>
+          <target state="final" state-qualifier="tm-suggestion">Пароль</target>
+        </trans-unit>
+        <trans-unit id="Login_txtCaptcha0.Header" translate="yes" xml:space="preserve">
+          <source>Captcha</source>
+          <target state="translated">Капча</target>
+        </trans-unit>
+        <trans-unit id="Login_txtCaptcha1.Header" translate="yes" xml:space="preserve">
+          <source>Captcha</source>
+          <target state="translated">Капча</target>
+        </trans-unit>
+        <trans-unit id="Login_txtLogin0.Header" translate="yes" xml:space="preserve">
+          <source>Username</source>
+          <target state="final" state-qualifier="tm-suggestion">Имя пользователя</target>
+        </trans-unit>
+        <trans-unit id="Login_txtLogin1.Header" translate="yes" xml:space="preserve">
+          <source>Username</source>
+          <target state="final" state-qualifier="tm-suggestion">Имя пользователя</target>
+        </trans-unit>
+        <trans-unit id="Notification.Header" translate="yes" xml:space="preserve">
+          <source>Notification</source>
+          <target state="final" state-qualifier="tm-suggestion">Уведомление</target>
+        </trans-unit>
+        <trans-unit id="Notification_cmdTelegramBotAddUser.Content" translate="yes" xml:space="preserve">
+          <source>Add user</source>
+          <target state="translated">Добавить пользователя</target>
+        </trans-unit>
+        <trans-unit id="Notification_cmdTelegramBotDeleteUser.Content" translate="yes" xml:space="preserve">
+          <source>Delete user</source>
+          <target state="final" state-qualifier="tm-suggestion">Удалить пользователя</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotCount.Text" translate="yes" xml:space="preserve">
+          <source>Number of connected to bot</source>
+          <target state="translated">Количество подключённых к боту</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDashboardName.Text" translate="yes" xml:space="preserve">
+          <source>Name of this Dashboard</source>
+          <target state="translated">Имя этой панели мониторинга</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDashboardNameError.Text" translate="yes" xml:space="preserve">
+          <source>Think the name of this dashboard to indicate it in bot messages</source>
+          <target state="translated">Придумайте имя этой панели управления для указания его в сообщениях бота</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription11.Text" translate="yes" xml:space="preserve">
+          <source>Brief description</source>
+          <target state="final" state-qualifier="tm-suggestion">Краткое описание</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription12.Text" translate="yes" xml:space="preserve">
+          <source>1. Dashboard Mining takes commands from the Telegram Bot and sends back the answers</source>
+          <target state="translated">1. Dashboard Mining принимает команды от бота Telegram и отправляет назад ответы</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription13.Text" translate="yes" xml:space="preserve">
+          <source>2. You can manage the state of the farms using Dashboard Mining and the Telegram Bot</source>
+          <target state="translated">2. Вы можете управлять состоянием ферм с помощью Dashboard Mining и бота Telegram</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription14.Text" translate="yes" xml:space="preserve">
+          <source>3. You need to create and configure your Telegram Bot (it will take a few minutes)</source>
+          <target state="translated">3. Вам необходимо создать и настроить своего бота Telegram (это займёт несколько минут)</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription21.Text" translate="yes" xml:space="preserve">
+          <source>Description of Telegram Bot features</source>
+          <target state="translated">Описание возможностей бота Telegram</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription22.Text" translate="yes" xml:space="preserve">
+          <source>1. User authorization by phone number</source>
+          <target state="translated">1. Авторизация пользователей по номеру телефона</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription23.Text" translate="yes" xml:space="preserve">
+          <source>2. Get users notifications about farm events</source>
+          <target state="translated">2. Получение пользователями уведомлений о событиях с фермами</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription31.Text" translate="yes" xml:space="preserve">
+          <source>List of Telegram Bot commands</source>
+          <target state="translated">Список команд бота Telegram</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription32.Text" translate="yes" xml:space="preserve">
+          <source>1. /start - Authorize users by phone number to receive notifications</source>
+          <target state="translated">1. /start - Авторизация пользователей по номеру телефона для получения уведомлений</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription41.Text" translate="yes" xml:space="preserve">
+          <source>Setting up the Telegram Bot</source>
+          <target state="translated">Настройка бота Telegram</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription42.Text" translate="yes" xml:space="preserve">
+          <source>1. Create a Telegram Bot. Official link to create a Telegram Bot:</source>
+          <target state="translated">1. Создайте бота Telegram. Официальная ссылка по созданию бота Telegram:</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription43.Text" translate="yes" xml:space="preserve">
+          <source>2. Add the bot command /start. Set the description of this command, comfortable for you</source>
+          <target state="translated">2. Добавьте боту команду /start. Установите описание этой команды, удобное для Вас</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription44.Text" translate="yes" xml:space="preserve">
+          <source>3. Add the bot command /check. Set the description of this command, comfortable for you</source>
+          <target state="translated">3. Добавьте боту команду /check. Установите описание этой команды, удобное для Вас</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription45.Text" translate="yes" xml:space="preserve">
+          <source>4. Find the token of the bot created and copy it to the Clipboard</source>
+          <target state="translated">4. Найдите токен созданного бота и скопируйте его в буфер обмена</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription46.Text" translate="yes" xml:space="preserve">
+          <source>5. In the Dashboard Mining on the 'Notification' tab:</source>
+          <target state="translated">5. В Dashboard Mining на закладке 'Уведомление':</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription47.Text" translate="yes" xml:space="preserve">
+          <source>- Enable 'Notify in Telegram Bot'</source>
+          <target state="translated">- Включите 'Уведомлять в бот Telegram'</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription48.Text" translate="yes" xml:space="preserve">
+          <source>- Fill in 'Name of this Dashboard'</source>
+          <target state="translated">- Заполните поле 'Имя этой панели мониторинга'</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription49.Text" translate="yes" xml:space="preserve">
+          <source>- Insert the bot token from the Clipboard in the 'Bot token' field</source>
+          <target state="translated">- Вставьте токен бота из буфера обмена в поле 'Токен бота'</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotList.Text" translate="yes" xml:space="preserve">
+          <source>Bot users</source>
+          <target state="translated">Пользователи бота</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotPhoneError.Text" translate="yes" xml:space="preserve">
+          <source>The user's phone must not be empty</source>
+          <target state="translated">Телефон пользователя не должен быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotToken.Text" translate="yes" xml:space="preserve">
+          <source>Bot token</source>
+          <target state="translated">Токен бота</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotTokenError.Text" translate="yes" xml:space="preserve">
+          <source>The bot token cannot be empty</source>
+          <target state="translated">Токен бота не должен быть пустым</target>
+        </trans-unit>
+        <trans-unit id="Notification_tsTelegramBot.Header" translate="yes" xml:space="preserve">
+          <source>Notify to Telegram Bot</source>
+          <target state="translated">Уведомлять в бот Telegram</target>
+        </trans-unit>
+        <trans-unit id="Notification_txtTelegramBotDashboardName.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Easy to read name of this Dashboard</source>
+          <target state="translated">Понимаемое имя панели мониторинга</target>
+        </trans-unit>
+        <trans-unit id="Settings_FanOnVideocardIsWeak.Text" translate="yes" xml:space="preserve">
+          <source>Fan speed on the video card is less than</source>
+          <target state="translated">Вентилятор на видеокарте вращается меньше, чем на</target>
+        </trans-unit>
+        <trans-unit id="Settings_FanOnVideocardSpinsHard.Text" translate="yes" xml:space="preserve">
+          <source>Fan speed on the video card is greater than</source>
+          <target state="translated">Вентилятор на видеокарте вращается больше, чем на</target>
+        </trans-unit>
+        <trans-unit id="Settings_NotAllVideocardsWork.Text" translate="yes" xml:space="preserve">
+          <source>Not all video cards work</source>
+          <target state="translated">Не все видеокарты работают</target>
+        </trans-unit>
+        <trans-unit id="Settings_VideocardSpeedSlowly.Text" translate="yes" xml:space="preserve">
+          <source>Video card speed is less than</source>
+          <target state="translated">Скорость видеокарты меньше, чем</target>
+        </trans-unit>
+        <trans-unit id="Settings_VideocardTemperatureHigh.Text" translate="yes" xml:space="preserve">
+          <source>Video card temperature is greater than</source>
+          <target state="translated">Температура видеокарты больше, чем</target>
+        </trans-unit>
+        <trans-unit id="Settings_VideocardTemperatureLow.Text" translate="yes" xml:space="preserve">
+          <source>Video card temperature is less than</source>
+          <target state="translated">Температура видеокарты меньше, чем</target>
+        </trans-unit>
+        <trans-unit id="FarmAction_Notification" translate="yes" xml:space="preserve">
+          <source>Notification</source>
+          <target state="final" state-qualifier="tm-suggestion">Уведомление</target>
+        </trans-unit>
+        <trans-unit id="FarmAction_RebootTheRig" translate="yes" xml:space="preserve">
+          <source>Reboot</source>
+          <target state="final">Перезагрузка</target>
+        </trans-unit>
+        <trans-unit id="FarmAction_TakeNoAction" translate="yes" xml:space="preserve">
+          <source>Take no action</source>
+          <target state="translated">Нет действия</target>
+        </trans-unit>
+        <trans-unit id="Problem_FanOnVideocardIsWeak" translate="yes" xml:space="preserve">
+          <source>The fan on video card is weak</source>
+          <target state="translated">Вентилятор видеокарты крутится слабо</target>
+        </trans-unit>
+        <trans-unit id="Problem_FanOnVideocardSpinsHard" translate="yes" xml:space="preserve">
+          <source>The fan on the video card rotates quickly</source>
+          <target state="translated">Вентилятор видеокарты крутится сильно</target>
+        </trans-unit>
+        <trans-unit id="Problem_FarmNotAvailable" translate="yes" xml:space="preserve">
+          <source>The farm is not available</source>
+          <target state="translated">Ферма недоступна</target>
+        </trans-unit>
+        <trans-unit id="Problem_NoFanDataOnVideocards" translate="yes" xml:space="preserve">
+          <source>No fan data on video card</source>
+          <target state="translated">Нет данных о вентиляторах на видеокартах</target>
+        </trans-unit>
+        <trans-unit id="Problem_NotAllVideocardsWork" translate="yes" xml:space="preserve">
+          <source>Not all video cards work</source>
+          <target state="translated">Работают не все видеокарты</target>
+        </trans-unit>
+        <trans-unit id="Problem_NoVideocardSpeedInfo" translate="yes" xml:space="preserve">
+          <source>No video card speed info</source>
+          <target state="translated">Нет данных о скорости видеокарт</target>
+        </trans-unit>
+        <trans-unit id="Problem_NoVideocardTemperatureInformation" translate="yes" xml:space="preserve">
+          <source>No video card temperature Information</source>
+          <target state="translated">Нет данных о температуре видеокарт</target>
+        </trans-unit>
+        <trans-unit id="Problem_VideocardSlow" translate="yes" xml:space="preserve">
+          <source>The video card is slow</source>
+          <target state="translated">Видеокарта работает медленно</target>
+        </trans-unit>
+        <trans-unit id="Problem_VideocardTemperatureHigh" translate="yes" xml:space="preserve">
+          <source>Temperature of video card is high</source>
+          <target state="translated">Температура видеокарты высокая</target>
+        </trans-unit>
+        <trans-unit id="Problem_VideocardTemperatureLow" translate="yes" xml:space="preserve">
+          <source>Temperature of video card is low</source>
+          <target state="translated">Температура видеокарты низкая</target>
+        </trans-unit>
+        <trans-unit id="Main_Rigs_Error_Get" translate="yes" xml:space="preserve">
+          <source>Failed to get list of farms for</source>
+          <target state="final">Ошибка получения списка ферм для</target>
+        </trans-unit>
+        <trans-unit id="Main_Rigs_Error_Parse" translate="yes" xml:space="preserve">
+          <source>Failed to parse farm list for</source>
+          <target state="final">Ошибка разбора списка ферм для</target>
+        </trans-unit>
+        <trans-unit id="Main_Rigs_Error_Check" translate="yes" xml:space="preserve">
+          <source>Farm data validation failed</source>
+          <target state="final">Ошибка проверки параметров фермы</target>
+        </trans-unit>
+        <trans-unit id="Notification_Format1" translate="yes" xml:space="preserve">
+          <source>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, Action: {5}, IP: {6}, Details: {7}</source>
+          <target state="final">Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, Действие: {5}, IP: {6}, Подробно: {7}</target>
+        </trans-unit>
+        <trans-unit id="Notification_Format2" translate="yes" xml:space="preserve">
+          <source>Source: {0}, Details: {1}</source>
+          <target state="final">Источник: {0}, Подробно: {1}</target>
+        </trans-unit>
+        <trans-unit id="Notification_Format3" translate="yes" xml:space="preserve">
+          <source>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, Action: {5}, IP: {6}</source>
+          <target state="translated">Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, Действие: {5}, IP: {6}</target>
+        </trans-unit>
+        <trans-unit id="Event_LogClear1" translate="yes" xml:space="preserve">
+          <source>Are you sure you want to clear the events?</source>
+          <target state="translated">Вы действительно хотите очистить журнал?</target>
+        </trans-unit>
+        <trans-unit id="Event_LogClear2" translate="yes" xml:space="preserve">
+          <source>Log events recovery is not possible. Clear log events?</source>
+          <target state="translated">Восстановление журнала невозможно. Очистить журнал?</target>
+        </trans-unit>
+        <trans-unit id="Event_LogCopy" translate="yes" xml:space="preserve">
+          <source>The selected rows are copied to the Clipboard</source>
+          <target state="translated">Выделенные строки скопированы в буфер обмена</target>
+        </trans-unit>
+        <trans-unit id="Event_LogDelete" translate="yes" xml:space="preserve">
+          <source>Are you sure you want to delete the selected rows?</source>
+          <target state="translated">Вы действительно хотите удалить выделенные строки?</target>
+        </trans-unit>
+        <trans-unit id="Dialog_No" translate="yes" xml:space="preserve">
+          <source>No</source>
+          <target state="translated">Нет</target>
+        </trans-unit>
+        <trans-unit id="Dialog_Yes" translate="yes" xml:space="preserve">
+          <source>Yes</source>
+          <target state="translated">Да</target>
+        </trans-unit>
+        <trans-unit id="TelegramBot_AddUser" translate="yes" xml:space="preserve">
+          <source>This phone number is already there</source>
+          <target state="translated">Такой номер телефона уже есть в списке</target>
+        </trans-unit>
+        <trans-unit id="TelegramBot_DeleteUser" translate="yes" xml:space="preserve">
+          <source>Are you sure to delete the selected phone number?</source>
+          <target state="translated">Удалить выбранный телефонный номер?</target>
+        </trans-unit>
+        <trans-unit id="Error_Login" translate="yes" xml:space="preserve">
+          <source>Error login</source>
+          <target state="translated">Ошибка входа</target>
+        </trans-unit>
+        <trans-unit id="Error_Logout" translate="yes" xml:space="preserve">
+          <source>Error logout</source>
+          <target state="translated">Ошибка выхода</target>
+        </trans-unit>
+        <trans-unit id="Error_Captcha" translate="yes" xml:space="preserve">
+          <source>Error get captcha</source>
+          <target state="translated">Ошибка получения капчи</target>
+        </trans-unit>
+        <trans-unit id="Error.Header" translate="yes" xml:space="preserve">
+          <source>Errors</source>
+          <target state="translated">Ошибки</target>
+        </trans-unit>
+        <trans-unit id="Error_Clear.Label" translate="yes" xml:space="preserve">
+          <source>Clear all</source>
+          <target state="translated">Очистить все</target>
+        </trans-unit>
+        <trans-unit id="Error_LogClear" translate="yes" xml:space="preserve">
+          <source>Are you sure you want to clear the errors?</source>
+          <target state="translated">Вы действительно хотите очистить ошибки?</target>
+        </trans-unit>
+        <trans-unit id="About_Privacy.Text" translate="yes" xml:space="preserve">
+          <source>PRIVACY POLICY</source>
+          <target state="translated">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</target>
+        </trans-unit>
+        <trans-unit id="Notification_Format4" translate="yes" xml:space="preserve">
+          <source>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, IP: {5}, Details: {6}</source>
+          <target state="translated">Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, IP: {5}, Подробно: {6}</target>
+        </trans-unit>
+        <trans-unit id="Notification_Format5" translate="yes" xml:space="preserve">
+          <source>Source: {0}, Group: {1}, Name: {2}, Problem: {3}, Duration: {4}, IP: {5}</source>
+          <target state="translated">Источник: {0}, Группа: {1}, Имя: {2}, Проблема: {3}, Длительность: {4}, IP: {5}</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription50.Text" translate="yes" xml:space="preserve">
+          <source>- Add the phone numbers of the users who will interact with Telegram Bot</source>
+          <target state="translated">- Добавьте телефонные номера пользователей, которые будут взаимодействовать с ботом</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription33.Text" translate="yes" xml:space="preserve">
+          <source>2. /check - Check current state of farms</source>
+          <target state="translated">2. /check - Проверка текущего состояния ферм</target>
+        </trans-unit>
+        <trans-unit id="Notification_lblTelegramBotDescription24.Text" translate="yes" xml:space="preserve">
+          <source>3. Check current state of farms</source>
+          <target state="translated">3. Проверка текущего состояния ферм</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
