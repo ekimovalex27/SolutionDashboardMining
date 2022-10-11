@@ -10,10 +10,4 @@ Dashboard Mining works with the site https://simplemining.net (Copyright © 2018
 
 Dashboard Mining tested for miner 'Claymore-eth-v 10.0'
 
-Farms control
-Flexible setting of farms control conditions
-Notifications in Telegram
-Event logging
-Detailed information about farms
-Multiple accounts
-Exporting events in CSV format
+Farms control, Flexible setting of farms control conditions, Notifications in Telegram, Event logging, Detailed information about farms, multiple accounts, Exporting events in CSV format
